@@ -94,6 +94,11 @@ _G.packer_plugins = {
     path = "/home/krishna/.local/share/nvim/site/pack/packer/start/lsp-zero.nvim",
     url = "https://github.com/VonHeikemen/lsp-zero.nvim"
   },
+  ["mapx.nvim"] = {
+    loaded = true,
+    path = "/home/krishna/.local/share/nvim/site/pack/packer/start/mapx.nvim",
+    url = "https://github.com/b0o/mapx.nvim"
+  },
   ["mason-lspconfig.nvim"] = {
     loaded = true,
     path = "/home/krishna/.local/share/nvim/site/pack/packer/start/mason-lspconfig.nvim",
