@@ -7,3 +7,4 @@ function Color(c)
 end
 
 Color()
+vim.cmd.colorscheme("rose-pine")
