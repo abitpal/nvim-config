@@ -17,7 +17,7 @@ vim.keymap.set('n', '<C-Down>', [[<Esc><C-w><down>i]])
 vim.keymap.set('n', '<C-Left>', [[<Esc><C-w><left>i]])
 vim.keymap.set('n', '<C-Right>', [[<Esc><C-w><right>i]])
 vim.keymap.set("n", "<F5>", ":set splitright<cr>:vs<cr><C-Right><Esc>:term<cr>i")
-
+vim.keymap.set("n", "<leader>fs", "<CMD>Telescope live_grep<CR>")
 vim.api.nvim_set_keymap("n", "<leader>as", ":ASToggle<CR>", {})
 -- vim.keymap.set("n", "<Esc>", "<C-_><C-n>")
 -- nnoremap("j", "gj")
