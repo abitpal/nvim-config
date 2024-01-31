@@ -69,4 +69,14 @@ return require('packer').startup(function(use)
       end,
   })
 
+  use({ "wbthomason/packer.nvim" })
+  use({
+    "ray-x/sad.nvim",
+    requires = { "ray-x/guihua.lua", run = "cd lua/fzy && make" },
+    config = function()
+      require("sad").setup{}
+    end,
+  })
+
+  use 'nvim-tree/nvim-web-devicons'
 end)
