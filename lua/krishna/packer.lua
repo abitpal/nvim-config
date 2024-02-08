@@ -84,4 +84,8 @@ return require('packer').startup(function(use)
     'nvim-lualine/lualine.nvim',
     requires = { 'nvim-tree/nvim-web-devicons', opt = true }
   }
+
+  use "preservim/tagbar"
+  use "tpope/vim-commentary"
+  use "nvim-tree/nvim-tree.lua"
 end)

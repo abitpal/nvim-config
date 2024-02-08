@@ -26,4 +26,5 @@ vim.api.nvim_set_keymap("n", "<leader>as", ":ASToggle<CR>", {})
 -- nnoremap("<down>", "<nop>")
 -- nnoremap("<left>", "<nop>")
 -- nnoremap("<right>", "<nop>")
-
+vim.keymap.set('n', '<F8>', ':TagbarToggle<CR>')
+vim.keymap.set('n', '<C-/>', ':Commentary<CR>')

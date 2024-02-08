@@ -135,6 +135,11 @@ _G.packer_plugins = {
     path = "/home/krishna/.local/share/nvim/site/pack/packer/start/nvim-lspconfig",
     url = "https://github.com/neovim/nvim-lspconfig"
   },
+  ["nvim-tree.lua"] = {
+    loaded = true,
+    path = "/home/krishna/.local/share/nvim/site/pack/packer/start/nvim-tree.lua",
+    url = "https://github.com/nvim-tree/nvim-tree.lua"
+  },
   ["nvim-treesitter"] = {
     loaded = true,
     path = "/home/krishna/.local/share/nvim/site/pack/packer/start/nvim-treesitter",
@@ -172,6 +177,11 @@ _G.packer_plugins = {
     path = "/home/krishna/.local/share/nvim/site/pack/packer/start/sad.nvim",
     url = "https://github.com/ray-x/sad.nvim"
   },
+  tagbar = {
+    loaded = true,
+    path = "/home/krishna/.local/share/nvim/site/pack/packer/start/tagbar",
+    url = "https://github.com/preservim/tagbar"
+  },
   ["telescope.nvim"] = {
     loaded = true,
     path = "/home/krishna/.local/share/nvim/site/pack/packer/start/telescope.nvim",
@@ -182,6 +192,11 @@ _G.packer_plugins = {
     path = "/home/krishna/.local/share/nvim/site/pack/packer/start/undotree",
     url = "https://github.com/mbbill/undotree"
   },
+  ["vim-commentary"] = {
+    loaded = true,
+    path = "/home/krishna/.local/share/nvim/site/pack/packer/start/vim-commentary",
+    url = "https://github.com/tpope/vim-commentary"
+  },
   ["vim-fugitive"] = {
     loaded = true,
     path = "/home/krishna/.local/share/nvim/site/pack/packer/start/vim-fugitive",
@@ -190,10 +205,6 @@ _G.packer_plugins = {
 }
 
 time([[Defining packer_plugins]], false)
--- Config for: sad.nvim
-time([[Config for sad.nvim]], true)
-try_loadstring("\27LJ\2\n5\0\0\3\0\3\0\a6\0\0\0'\2\1\0B\0\2\0029\0\2\0004\2\0\0B\0\2\1K\0\1\0\nsetup\bsad\frequire\0", "config", "sad.nvim")
-time([[Config for sad.nvim]], false)
 -- Config for: rose-pine
 time([[Config for rose-pine]], true)
 try_loadstring("\27LJ\2\n9\0\0\3\0\3\0\0056\0\0\0009\0\1\0'\2\2\0B\0\2\1K\0\1\0\26colorscheme rose-pine\bcmd\bvim\0", "config", "rose-pine")
@@ -202,6 +213,10 @@ time([[Config for rose-pine]], false)
 time([[Config for auto-save.nvim]], true)
 try_loadstring("\27LJ\2\nG\0\0\3\0\4\0\a6\0\0\0'\2\1\0B\0\2\0029\0\2\0005\2\3\0B\0\2\1K\0\1\0\1\0\1\fenabled\2\nsetup\14auto-save\frequire\0", "config", "auto-save.nvim")
 time([[Config for auto-save.nvim]], false)
+-- Config for: sad.nvim
+time([[Config for sad.nvim]], true)
+try_loadstring("\27LJ\2\n5\0\0\3\0\3\0\a6\0\0\0'\2\1\0B\0\2\0029\0\2\0004\2\0\0B\0\2\1K\0\1\0\nsetup\bsad\frequire\0", "config", "sad.nvim")
+time([[Config for sad.nvim]], false)
 
 _G._packer.inside_compile = false
 if _G._packer.needs_bufread == true then
