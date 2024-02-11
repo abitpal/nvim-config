@@ -3,7 +3,9 @@ require("mapx").setup({
 })
 
 vim.g.mapleader = " "
-vim.keymap.set("n", "<leader>pv", ":Ex<CR>")
+vim.keymap.set("n", "<leader>pv", ":NvimTreeFocus<CR>")
+vim.keymap.set("n", "<leader>pc", ":NvimTreeClose<CR>")
+vim.keymap.set("n", "<leader>pr", ":NvimTreeRefresh<CR>")
 noremap("<leader>y", [["+y]], "silent")
 noremap("<leader>p", [["+p]], "silent")
 
