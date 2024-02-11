@@ -103,4 +103,9 @@ return require('packer').startup(function(use)
       }
     end
   }
+
+  use {
+    "folke/trouble.nvim",
+    dependencies = { "nvim-tree/nvim-web-devicons" },
+  }
 end)
