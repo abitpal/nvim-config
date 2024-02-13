@@ -1,10 +1,7 @@
-function Color(c)
-	color = c or "rose-pine"
-	vim.cmd.colorscheme(color)
+require('colorbuddy').colorscheme('material')
 
-	vim.api.nvim_set_hl(0, "Normal", {bg = "none" })
-	vim.api.nvim_set_hl(0, "NormalFloat", {bg = "none" })
-end
 
-Color()
-vim.cmd.colorscheme("rose-pine")
+--Lua:
+vim.cmd 'colorscheme material'
+--Lua:
+vim.g.material_style = "darker"
