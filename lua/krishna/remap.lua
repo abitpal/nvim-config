@@ -7,6 +7,7 @@ vim.keymap.set("n", "<leader>pv", ":NvimTreeFocus<CR>")
 vim.keymap.set("n", "<leader>pc", ":NvimTreeClose<CR>")
 vim.keymap.set("n", "<leader>pr", ":NvimTreeRefresh<CR>")
 vim.keymap.set("n", "<leader>t", ":TroubleToggle<CR>")
+vim.keymap.set("n", "<leader>s", ":Sad<CR>")
 noremap("<leader>y", [["+y]], "silent")
 noremap("<leader>p", [["+p]], "silent")
 
