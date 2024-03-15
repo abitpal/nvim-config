@@ -1,4 +1,4 @@
-require('colorbuddy').colorscheme('material')
+-- require('colorbuddy').colorscheme('material')
 
 
 --Lua:

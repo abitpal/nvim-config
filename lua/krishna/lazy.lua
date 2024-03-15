@@ -21,21 +21,21 @@ require("lazy").setup({
     "tjdevries/colorbuddy.nvim",
     'marko-cerovac/material.nvim',
     "stevearc/dressing.nvim",
-  --   {
-  -- "folke/noice.nvim",
-  --     event = "VeryLazy",
-  --     opts = {
-        -- add any options here
-  --     },
-  --     dependencies = {
-        -- if you lazy-load any plugin below, make sure to add proper `module="..."` entries
-  --       "MunifTanjim/nui.nvim",
-        -- OPTIONAL:
-        --   `nvim-notify` is only needed, if you want to use the notification view.
-        --   If not available, we use `mini` as the fallback
-  --       "rcarriga/nvim-notify",
-  --       }
-  --   },
+    {
+      "folke/noice.nvim",
+      event = "VeryLazy",
+      opts = {
+--        add any options here
+      },
+      dependencies = {
+--        if you lazy-load any plugin below, make sure to add proper `module="..."` entries
+        "MunifTanjim/nui.nvim",
+--        OPTIONAL:
+--          `nvim-notify` is only needed, if you want to use the notification view.
+--          If not available, we use `mini` as the fallback
+        "rcarriga/nvim-notify",
+        }
+      },
 	"b0o/mapx.nvim",
 	{
 
