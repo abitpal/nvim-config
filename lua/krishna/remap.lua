@@ -31,7 +31,9 @@ vim.api.nvim_set_keymap("n", "<leader>as", ":ASToggle<CR>", {})
 -- nnoremap("<left>", "<nop>")
 -- nnoremap("<right>", "<nop>")
 vim.keymap.set('n', '<leader>c', ':TagbarToggle<CR>')
-vim.keymap.set('n', '<C-/>', ':Commentary<CR>')
+-- TPOPE COMMENTARY vim.keymap.set('n', '<C-/>', ':Commentary<CR>')
+
+
 
 vim.api.nvim_set_keymap('n', '<leader>ccq', [[:lua << EOF
     local input = vim.fn.input("Quick Chat: ")

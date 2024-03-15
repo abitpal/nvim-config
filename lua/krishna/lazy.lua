@@ -114,7 +114,14 @@ require("lazy").setup({
 
 	"preservim/tagbar",
 
-	"tpope/vim-commentary",
+	-- "tpope/vim-commentary",
+    {
+        'numToStr/Comment.nvim',
+        opts = {
+            -- add any options here
+        },
+        lazy = false,
+    },
 
 	"nvim-tree/nvim-tree.lua",
 
@@ -158,8 +165,15 @@ require("lazy").setup({
           { "nvim-lua/plenary.nvim" }, -- for curl, log wrapper
         },
         opts = {
-          debug = false, -- Enable debugging
-          -- See Configuration section for rest
+            debug = false, -- Enable debugging
+              -- See Configuration section for rest
+            window = {
+                layout = 'float',
+                relative = 'cursor',
+                width = 1,
+                height = 0.4,
+                row = 1
+            }
         },
         -- See Commands section for default commands if you want to lazy load on them
         keys = {
@@ -183,12 +197,4 @@ require("lazy").setup({
     },
 
   }
-}, {
-    window = {
-      layout = 'float',
-      relative = 'cursor',
-      width = 1,
-      height = 0.4,
-      row = 1
-    }
-  })
+})

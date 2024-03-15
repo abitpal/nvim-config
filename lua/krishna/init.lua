@@ -5,4 +5,4 @@ require("krishna.set")
 require("krishna.swift")
 require("krishna.sad")
 
---print("hello from krishna")
+-- print("hello from krishna")
