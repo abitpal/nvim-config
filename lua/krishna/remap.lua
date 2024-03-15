@@ -32,3 +32,24 @@ vim.api.nvim_set_keymap("n", "<leader>as", ":ASToggle<CR>", {})
 -- nnoremap("<right>", "<nop>")
 vim.keymap.set('n', '<leader>c', ':TagbarToggle<CR>')
 vim.keymap.set('n', '<C-/>', ':Commentary<CR>')
+
+vim.api.nvim_set_keymap('n', '<leader>ccq', [[:lua << EOF
+    local input = vim.fn.input("Quick Chat: ")
+    if input ~= "" then
+        require("CopilotChat").ask(input, { selection = require("CopilotChat.select").buffer })
+    end
+EOF
+]], {noremap = true, silent = true})
+
+vim.api.nvim_set_keymap('n', '<leader>cch', [[:lua << EOF
+    local actions = require("CopilotChat.actions")
+    require("CopilotChat.integrations.telescope").pick(actions.help_actions())
+EOF
+]], {noremap = true, silent = true})
+
+vim.api.nvim_set_keymap('n', '<leader>ccp', [[:lua << EOF
+    local actions = require("CopilotChat.actions")
+    require("CopilotChat.integrations.telescope").pick(actions.prompt_actions())
+EOF
+]], {noremap = true, silent = true})
+

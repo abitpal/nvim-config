@@ -47,7 +47,7 @@ require("lazy").setup({
 
 		dependencies = { "nvim-lua/plenary.nvim" },
 	},
-	{ "nvim-treesitter/nvim-treesitter", build = ":TSUpdate" },
+    { "nvim-treesitter/nvim-treesitter", build = ":TSUpdate" },
 	"nvim-treesitter/playground",
 	"ThePrimeagen/harpoon",
 	"mbbill/undotree",
@@ -148,7 +148,47 @@ require("lazy").setup({
 
 		dependencies = { "nvim-tree/nvim-web-devicons" },
 	},
+    "github/copilot.vim",
 
+    {
+        "CopilotC-Nvim/CopilotChat.nvim",
+        branch = "canary",
+        dependencies = {
+          { "github/copilot.vim" }, -- or github/copilot.vim
+          { "nvim-lua/plenary.nvim" }, -- for curl, log wrapper
+        },
+        opts = {
+          debug = false, -- Enable debugging
+          -- See Configuration section for rest
+        },
+        -- See Commands section for default commands if you want to lazy load on them
+        keys = {
+            {
+                "<leader>zh",
+                function()
+                  local actions = require("CopilotChat.actions")
+                  require("CopilotChat.integrations.telescope").pick(actions.help_actions())
+                end,
+                desc = "CopilotChat - Help actions",
+            },
+            {
+                "<leader>zz",
+                function()
+                  local actions = require("CopilotChat.actions")
+                  require("CopilotChat.integrations.telescope").pick(actions.prompt_actions())
+                end,
+                desc = "CopilotChat - Prompt actions",
+            },
+        },
+    },
 
   }
-})
+}, {
+    window = {
+      layout = 'float',
+      relative = 'cursor',
+      width = 1,
+      height = 0.4,
+      row = 1
+    }
+  })
