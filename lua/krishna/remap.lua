@@ -8,6 +8,8 @@ vim.keymap.set("n", "<leader>pc", ":NvimTreeClose<CR>")
 vim.keymap.set("n", "<leader>pr", ":NvimTreeRefresh<CR>")
 vim.keymap.set("n", "<leader>t", ":TroubleToggle<CR>")
 vim.keymap.set("n", "<leader>s", ":Sad<CR>")
+vim.keymap.set("n", "<leader>u", ":UndotreeToggle<CR>")
+vim.keymap.set("n", "<leader>g", ":G<CR>")
 noremap("<leader>y", [["+y]], "silent")
 noremap("<leader>p", [["+p]], "silent")
 
