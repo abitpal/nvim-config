@@ -196,5 +196,6 @@ require("lazy").setup({
         },
     },
 
+    "xiyaowong/transparent.nvim",
   }
 })
