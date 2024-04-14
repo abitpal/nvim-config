@@ -24,6 +24,7 @@ vim.keymap.set('n', '<C-Left>', [[<Esc><C-w><left>i]])
 vim.keymap.set('n', '<C-Right>', [[<Esc><C-w><right>i]])
 vim.keymap.set("n", "<F5>", ":set splitright<cr>:vs<cr><C-Right><Esc>:term<cr>i")
 vim.keymap.set("n", "<leader>fs", "<CMD>Telescope live_grep<CR>")
+vim.keymap.set("n", "<leader>ff", "<CMD>Telescope find_files<CR>")
 vim.api.nvim_set_keymap("n", "<leader>as", ":ASToggle<CR>", {})
 -- vim.keymap.set("n", "<Esc>", "<C-_><C-n>")
 nnoremap("j", "gj")
@@ -54,7 +55,7 @@ vim.keymap.set("n", "<leader>h8", function() ui.nav_file(8) end)
 vim.keymap.set("n", "<leader>h9", function() ui.nav_file(9) end)
 
 
-vim.api.nvim_set_keymap('n', '<leader>ccq', [[:lua << EOF
+vim.api.nvim_set_keymap('n', '<leader>zcq', [[:lua << EOF
     local input = vim.fn.input("Quick Chat: ")
     if input ~= "" then
         require("CopilotChat").ask(input, { selection = require("CopilotChat.select").buffer })
@@ -62,13 +63,13 @@ vim.api.nvim_set_keymap('n', '<leader>ccq', [[:lua << EOF
 EOF
 ]], {noremap = true, silent = true})
 
-vim.api.nvim_set_keymap('n', '<leader>cch', [[:lua << EOF
+vim.api.nvim_set_keymap('n', '<leader>zch', [[:lua << EOF
     local actions = require("CopilotChat.actions")
     require("CopilotChat.integrations.telescope").pick(actions.help_actions())
 EOF
 ]], {noremap = true, silent = true})
 
-vim.api.nvim_set_keymap('n', '<leader>ccp', [[:lua << EOF
+vim.api.nvim_set_keymap('n', '<leader>zcp', [[:lua << EOF
     local actions = require("CopilotChat.actions")
     require("CopilotChat.integrations.telescope").pick(actions.prompt_actions())
 EOF
