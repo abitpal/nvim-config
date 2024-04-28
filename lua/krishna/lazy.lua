@@ -147,6 +147,7 @@ require("lazy").setup({
                     -- refer to the configuration section below
                 })
             end,
+            enabled = false
         },
 
         {
