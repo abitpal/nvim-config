@@ -19,7 +19,7 @@ require("harpoon").setup(
     mark_branch = false,
 
     -- enable tabline with harpoon marks
-    tabline = true,
+    tabline = false,
     tabline_prefix = "   ",
     tabline_suffix = "   ",
 }
