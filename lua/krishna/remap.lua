@@ -69,6 +69,7 @@ vim.keymap.set("n", "<leader>h7", function() ui.nav_file(7) end)
 vim.keymap.set("n", "<leader>h8", function() ui.nav_file(8) end)
 vim.keymap.set("n", "<leader>h9", function() ui.nav_file(9) end)
 
+vim.keymap.set("n", "<leader>l", ":TodoTelescope<CR>")
 
 vim.api.nvim_set_keymap('n', '<leader>zcq', [[:lua << EOF
     local input = vim.fn.input("Quick Chat: ")
@@ -87,6 +88,12 @@ EOF
 vim.api.nvim_set_keymap('n', '<leader>zcp', [[:lua << EOF
     local actions = require("CopilotChat.actions")
     require("CopilotChat.integrations.telescope").pick(actions.prompt_actions())
+EOF
+]], {noremap = true, silent = true})
+
+
+vim.api.nvim_set_keymap('n', '<leader>zcc', [[:lua << EOF
+    require("CopilotChat").toggle() 
 EOF
 ]], {noremap = true, silent = true})
 

@@ -198,5 +198,10 @@ require("lazy").setup({
         },
 
         "xiyaowong/transparent.nvim",
+
+        {
+            "folke/todo-comments.nvim",
+            dependencies = { "nvim-lua/plenary.nvim" },
+        }
     }
 })
