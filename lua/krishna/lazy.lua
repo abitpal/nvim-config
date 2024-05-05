@@ -19,7 +19,10 @@ require("lazy").setup({
 
 
         "tjdevries/colorbuddy.nvim",
-        'marko-cerovac/material.nvim',
+        {
+            'marko-cerovac/material.nvim',
+            enabled=false,
+        },
         "stevearc/dressing.nvim",
         {
             "folke/noice.nvim",
@@ -202,6 +205,8 @@ require("lazy").setup({
         {
             "folke/todo-comments.nvim",
             dependencies = { "nvim-lua/plenary.nvim" },
-        }
+        },
+
+        "dracula/vim",
     }
 })
