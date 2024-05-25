@@ -66,6 +66,10 @@ vim.keymap.set("n", "<leader>8", ":tabnext 8<CR>")
 vim.keymap.set("n", "<leader>9", ":tabnext 9<CR>")
 
 
+vim.keymap.set("n", "<C-b>", ":BuildCMake<CR>")
+vim.keymap.set("n", "<C-r>", ":lua RunProgramInFloatingWindow()<CR>")
+
+
 vim.keymap.set("n", "<leader>h1", function() ui.nav_file(1) end)
 vim.keymap.set("n", "<leader>h2", function() ui.nav_file(2) end)
 vim.keymap.set("n", "<leader>h3", function() ui.nav_file(3) end)

@@ -57,7 +57,7 @@ require("lazy").setup({
         "tpope/vim-fugitive",
         {
             "VonHeikemen/lsp-zero.nvim",
-            branch = "v3.x",
+            --            branch = "v3.x",
             dependencies = {
 
                 --- Uncomment these if you want to manage LSP servers from neovim
@@ -208,5 +208,11 @@ require("lazy").setup({
         },
 
         "dracula/vim",
+        {
+            'j-hui/fidget.nvim',
+            config = function()
+                require('fidget').setup{}
+            end
+        },
     }
 })
