@@ -70,4 +70,38 @@ require('mason-lspconfig').setup({
 })
 
 
-
+local lspconfig = require('lspconfig')
+lspconfig.pylsp.setup({
+    settings = {
+        pylsp = {
+            plugins = {
+                pycodestyle = {
+                    enabled = true,
+                    ignore = {'E501', 'E302', 'E303', 'E226', 'E241', 'E704', 'W391', 'W293', 'E116'},
+                    maxLineLength = 100
+                },
+                pylint = {
+                    enabled = false
+                },
+                flake8 = {
+                    enabled = false
+                },
+                pyflakes = {
+                    enabled = true
+                },
+                mccabe = {
+                    enabled = false
+                },
+                yapf = {
+                    enabled = false
+                },
+                autopep8 = {
+                    enabled = false
+                },
+                pydocstyle = {
+                    enabled = false
+                }
+            }
+        }
+    }
+})

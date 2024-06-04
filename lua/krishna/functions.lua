@@ -49,7 +49,7 @@ local function build_cmake_project()
             end
 
             -- Run make command if cmake succeeds
-            local make_cmd = "cmake --build " .. build_dir
+            local make_cmd = "cmake --build " .. build_dir .. " -j16"
             handle:report({
                 message = "Building...",
                 percentage = 75,
@@ -137,6 +137,22 @@ function RunProgramInFloatingWindow()
 
     -- Open the floating window
     local win = vim.api.nvim_open_win(buf, true, opts)
+
+    -- Define the function to close the floating window locally
+    local function close_floating_window()
+        vim.api.nvim_win_close(win, true)
+    end
+
+    -- Set key mappings to close the floating window with any key
+    local keymaps = {'<esc>', '<CR>', 'q', '<space>'}
+    for _, key in ipairs(keymaps) do
+        vim.api.nvim_buf_set_keymap(buf, 'n', key, '', {
+            noremap = true,
+            silent = true,
+            callback = close_floating_window
+        })
+    end
+
 
     -- Run the program and capture its output
     local job_id = vim.fn.jobstart(program_cmd, {
