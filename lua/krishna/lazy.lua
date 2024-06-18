@@ -77,6 +77,10 @@ require("lazy").setup({
                 "hrsh7th/cmp-nvim-lsp",
 
                 "L3MON4D3/LuaSnip",
+
+                "rafamadriz/friendly-snippets",
+
+                "saadparwaiz1/cmp_luasnip"
             },
         },
         {
@@ -230,6 +234,32 @@ require("lazy").setup({
                 { "<c-l>", "<cmd><C-U>TmuxNavigateRight<cr>" },
                 { "<c-\\>", "<cmd><C-U>TmuxNavigatePrevious<cr>" },
             },
-        }
+        },
+        "DragonflyRobotics/ros2-nvim",
+        "lewis6991/gitsigns.nvim",
+        {
+            "NeogitOrg/neogit",
+            dependencies = {
+                "nvim-lua/plenary.nvim",         -- required
+                "sindrets/diffview.nvim",        -- optional - Diff integration
+
+                -- Only one of these is needed, not both.
+                "nvim-telescope/telescope.nvim", -- optional
+                "ibhagwan/fzf-lua",              -- optional
+            },
+            config = true
+        },
+        "petertriho/nvim-scrollbar",
+        "kevinhwang91/nvim-hlslens",
+        {
+            'Wansmer/treesj',
+            dependencies = { 'nvim-treesitter/nvim-treesitter' }, -- if you install parsers with `nvim-treesitter`
+            config = function()
+                require('treesj').setup({--[[ your config ]]})
+            end,
+        },
+        "andymass/vim-matchup",
+        "RRethy/vim-illuminate"
     }
 })
+

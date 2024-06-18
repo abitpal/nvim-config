@@ -27,3 +27,11 @@ vim.opt.isfname:append("@-@")
 vim.opt.updatetime = 50
 
 vim.opt.colorcolumn = "80"
+
+--set hlssearch
+vim.opt.hlsearch = true
+vim.opt.incsearch = true
+
+ -- enable vim-matchup
+vim.g.loaded_matchit = 1
+vim.g.matchup_matchparen_offscreen = { method = 'popup' }

@@ -1,32 +1,51 @@
--- local lsp_zero = require('lsp-zero')
---
 local cmp = require('cmp')
--- local cmp_action = require('lsp-zero').cmp_action()
+local luasnip = require('luasnip')
 
 cmp.setup({
-  mapping = cmp.mapping.preset.insert({
---     -- `Enter` key to confirm completion
-    ['<CR>'] = cmp.mapping.confirm({select = true}),
---
---     -- Ctrl+Space to trigger completion menu
-    ['<C-Space>'] = cmp.mapping.complete(),
---
---     -- Navigate between snippet placeholder
---     ['<C-f>'] = cmp_action.luasnip_jump_forward(),
---     ['<C-b>'] = cmp_action.luasnip_jump_backward(),
---
---     -- Scroll up and down in the completion documentation
---     ['<C-u>'] = cmp.mapping.scroll_docs(-4),
---     ['<C-d>'] = cmp.mapping.scroll_docs(4),
-  })
+    snippet = {
+        expand = function(args)
+            luasnip.lsp_expand(args.body)
+        end,
+    },
+    mapping = {
+        -- `Enter` key to confirm completion
+        ['<CR>'] = cmp.mapping.confirm({ select = true }),
+
+        -- Ctrl+Space to trigger completion menu
+        ['<C-Space>'] = cmp.mapping.complete(),
+
+        -- Navigate between snippet placeholders
+        ['<Tab>'] = cmp.mapping(function(fallback)
+            if cmp.visible() then
+                cmp.select_next_item()
+            elseif luasnip.expand_or_jumpable() then
+                luasnip.expand_or_jump()
+            else
+                fallback()
+            end
+        end, { 'i', 's' }),
+
+        ['<S-Tab>'] = cmp.mapping(function(fallback)
+            if cmp.visible() then
+                cmp.select_prev_item()
+            elseif luasnip.jumpable(-1) then
+                luasnip.jump(-1)
+            else
+                fallback()
+            end
+        end, { 'i', 's' }),
+
+        -- Scroll up and down in the completion documentation
+        ['<C-u>'] = cmp.mapping.scroll_docs(-4),
+        ['<C-d>'] = cmp.mapping.scroll_docs(4),
+    },
+    sources = {
+        { name = 'nvim_lsp' },
+        { name = 'luasnip' },
+        { name = 'buffer' },
+        { name = 'path' },
+    },
 })
---
--- lsp_zero.on_attach(function(client, bufnr)
---   -- see :help lsp-zero-keybindings
---   -- to learn the available actions
---   lsp_zero.default_keymaps({buffer = bufnr})
---   vim.keymap.set('n', 'gr', '<cmd>Telescope lsp_references<cr>', {buffer = bufnr})
--- end)
 
 local lsp_zero = require('lsp-zero')
 
@@ -49,14 +68,14 @@ lsp_zero.on_attach(function(client, bufnr)
     -- vim.keymap.set('n', '<leader>dt', '<cmd>lua vim.lsp.buf.type_definition()<cr>', opts)
     vim.keymap.set('n', '<leader>ds', '<cmd>Telescope lsp_document_symbols<cr>', {buffer = bufnr})
     vim.keymap.set('n', '<leader>ws', '<cmd>Telescope lsp_workspace_symbols<cr>', opts)
- 
+
 end)
 
 lsp_zero.set_sign_icons({
-  error = '✘',
-  warn = '▲',
-  hint = '⚑',
-  info = '»'
+    error = '✘',
+    warn = '▲',
+    hint = '⚑',
+    info = '»'
 })
 
 require('mason').setup({})
@@ -77,7 +96,7 @@ lspconfig.pylsp.setup({
             plugins = {
                 pycodestyle = {
                     enabled = true,
-                    ignore = {'E501', 'E302', 'E303', 'E226', 'E241', 'E704', 'W391', 'W293', 'E116'},
+                    ignore = {'E501', 'E302', 'E303', 'E226', 'E241', 'E704', 'W391', 'W293', 'E116', 'W291', 'E741', 'E305'},
                     maxLineLength = 100
                 },
                 pylint = {

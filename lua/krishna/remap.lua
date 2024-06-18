@@ -9,7 +9,7 @@ vim.keymap.set("n", "<leader>pr", ":NvimTreeRefresh<CR>")
 vim.keymap.set("n", "<leader>t", ":TroubleToggle<CR>")
 vim.keymap.set("n", "<leader>s", ":Sad<CR>")
 vim.keymap.set("n", "<leader>u", ":UndotreeToggle<CR>")
-vim.keymap.set("n", "<leader>G", ":G<CR>")
+vim.keymap.set("n", "<leader>G", ":Neogit<CR>")
 noremap("<leader>y", [["+y]], "silent")
 noremap("<leader>p", [["+p]], "silent")
 
@@ -70,7 +70,9 @@ vim.keymap.set("n", "<leader>9", ":tabnext 9<CR>")
 
 
 vim.keymap.set("n", "<C-b>", ":BuildCMake<CR>")
-vim.keymap.set("n", "<C-r>", ":lua RunProgramInFloatingWindow()<CR>")
+vim.keymap.set("n", "<C-e>", ":lua RunProgramInFloatingWindow()<CR>")
+
+vim.keymap.set("n", "<leader>m", ":Telescope ros2-nvim topic_telescope<CR>")
 
 
 vim.keymap.set("n", "<leader>h1", function() ui.nav_file(1) end)
@@ -84,6 +86,7 @@ vim.keymap.set("n", "<leader>h8", function() ui.nav_file(8) end)
 vim.keymap.set("n", "<leader>h9", function() ui.nav_file(9) end)
 
 vim.keymap.set("n", "<leader>l", ":TodoTelescope<CR>")
+vim.api.nvim_set_keymap("n", "<S-Tab>", "<cmd>lua require('treesj').toggle()<cr>", { noremap = true, silent = true })
 
 vim.api.nvim_set_keymap('n', '<leader>zcq', [[:lua << EOF
     local input = vim.fn.input("Quick Chat: ")
