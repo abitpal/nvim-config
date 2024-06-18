@@ -259,7 +259,8 @@ require("lazy").setup({
             end,
         },
         "andymass/vim-matchup",
-        "RRethy/vim-illuminate"
+        "RRethy/vim-illuminate",
+        "cshuaimin/ssr.nvim",
     }
 })
 

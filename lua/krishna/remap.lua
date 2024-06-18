@@ -88,6 +88,8 @@ vim.keymap.set("n", "<leader>h9", function() ui.nav_file(9) end)
 vim.keymap.set("n", "<leader>l", ":TodoTelescope<CR>")
 vim.api.nvim_set_keymap("n", "<S-Tab>", "<cmd>lua require('treesj').toggle()<cr>", { noremap = true, silent = true })
 
+vim.keymap.set({ "n", "x" }, "<leader>Sr", function() require("ssr").open() end)
+
 vim.api.nvim_set_keymap('n', '<leader>zcq', [[:lua << EOF
     local input = vim.fn.input("Quick Chat: ")
     if input ~= "" then
