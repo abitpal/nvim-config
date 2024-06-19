@@ -1,1 +1,1 @@
-vim.cmd "TransparentEnable"
+vim.cmd "TransparentDisable"

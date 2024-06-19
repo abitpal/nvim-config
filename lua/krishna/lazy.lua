@@ -52,6 +52,7 @@ require("lazy").setup({
         },
         { "nvim-treesitter/nvim-treesitter", build = ":TSUpdate" },
         "nvim-treesitter/playground",
+        "nvim-treesitter/nvim-treesitter-context",
         "ThePrimeagen/harpoon",
         "mbbill/undotree",
         "tpope/vim-fugitive",
@@ -160,7 +161,8 @@ require("lazy").setup({
         {
 
             "folke/trouble.nvim",
-
+            opts = {}, -- for default options, refer to the configuration section for custom setup.
+            cmd = "Trouble",
             dependencies = { "nvim-tree/nvim-web-devicons" },
         },
         "github/copilot.vim",
@@ -291,7 +293,11 @@ require("lazy").setup({
                 { "=P", "<Plug>(YankyPutBeforeFilter)", desc = "Put before applying a filter" },
             },
         },
-        'mhinz/vim-startify'
+        'mhinz/vim-startify',
+        {
+            'akinsho/bufferline.nvim',
+            dependencies = 'nvim-tree/nvim-web-devicons'
+        },
     }
 })
 
