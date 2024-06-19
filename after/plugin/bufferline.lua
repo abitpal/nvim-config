@@ -11,7 +11,7 @@ require("bufferline").setup{
         separator_style = "thick",
         -- style_preset = bufferline.style_preset.no_italic,
         numbers = function(opts)
-            return string.format('%s', opts.raise(opts.ordinal))
+            return string.format('%s|%s', opts.id, opts.raise(opts.ordinal))
         end,
         diagnostics = "nvim_lsp",
         diagnostics_indicator = function(count, level)

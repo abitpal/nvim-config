@@ -183,3 +183,11 @@ function RunProgramInFloatingWindow()
     end
 end
 
+
+
+-- Function to jump to a buffer matching partial name
+local function jump_to_buffer(partial_name)
+    vim.cmd('b ' .. partial_name)
+end
+
+_G.jump_to_buffer = jump_to_buffer
