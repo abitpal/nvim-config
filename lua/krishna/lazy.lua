@@ -51,11 +51,20 @@ require("lazy").setup({
             dependencies = { "nvim-lua/plenary.nvim" },
         },
         { "nvim-treesitter/nvim-treesitter", build = ":TSUpdate" },
-        "nvim-treesitter/playground",
+        {
+            "nvim-treesitter/playground",
+            enabled = false,
+        },
         "nvim-treesitter/nvim-treesitter-context",
         "ThePrimeagen/harpoon",
-        "mbbill/undotree",
-        "tpope/vim-fugitive",
+        {
+            "mbbill/undotree",
+            lazy = true,
+        },
+        {
+            "tpope/vim-fugitive",
+            lazy = true,
+        },
         {
             "VonHeikemen/lsp-zero.nvim",
             --            branch = "v3.x",
@@ -90,83 +99,60 @@ require("lazy").setup({
 
             config = function()
                 require("auto-save").setup({
-
                     enabled = true,
-
-                    -- your config goes here
-
-                    -- or just leave it empty :)
                 })
             end,
         },
-
         {
 
             "ray-x/sad.nvim",
-
             dependencies = { "ray-x/guihua.lua", build = "cd lua/fzy && make" },
-
             config = function()
                 require("sad").setup({})
             end,
+            lazy = true,
         },
-
         "nvim-tree/nvim-web-devicons",
-
         {
-
             "nvim-lualine/lualine.nvim",
-
             dependencies = { "nvim-tree/nvim-web-devicons", lazy = true },
         },
-
-        "preservim/tagbar",
-
+        {
+            "preservim/tagbar",
+            lazy = true,
+        },
         -- "tpope/vim-commentary",
         {
             'numToStr/Comment.nvim',
-            opts = {
-                -- add any options here
-            },
-            lazy = false,
+            lazy = true,
         },
-
         "nvim-tree/nvim-tree.lua",
 
-        "lukas-reineke/indent-blankline.nvim",
-
-        -- Lua
-
         {
-
+            "lukas-reineke/indent-blankline.nvim",
+            lazy = true,
+        },
+        {
             "folke/which-key.nvim",
-
             config = function()
                 vim.o.timeout = true
-
                 vim.o.timeoutlen = 300
-
                 require("which-key").setup({
-
-                    -- your configuration comes here
-
-                    -- or leave it empty to use the default settings
-
-                    -- refer to the configuration section below
                 })
             end,
             enabled = false
         },
-
         {
 
             "folke/trouble.nvim",
             opts = {}, -- for default options, refer to the configuration section for custom setup.
             cmd = "Trouble",
             dependencies = { "nvim-tree/nvim-web-devicons" },
+            lazy = true
         },
-        "github/copilot.vim",
-
+        {
+            "github/copilot.vim",
+        },
         {
             "CopilotC-Nvim/CopilotChat.nvim",
             branch = "canary",
@@ -185,40 +171,25 @@ require("lazy").setup({
                     row = 1
                 }
             },
-            -- See Commands section for default commands if you want to lazy load on them
-            keys = {
-                {
-                    "<leader>zh",
-                    function()
-                        local actions = require("CopilotChat.actions")
-                        require("CopilotChat.integrations.telescope").pick(actions.help_actions())
-                    end,
-                    desc = "CopilotChat - Help actions",
-                },
-                {
-                    "<leader>zz",
-                    function()
-                        local actions = require("CopilotChat.actions")
-                        require("CopilotChat.integrations.telescope").pick(actions.prompt_actions())
-                    end,
-                    desc = "CopilotChat - Prompt actions",
-                },
-            },
+            lazy = true,
         },
-
-        "xiyaowong/transparent.nvim",
+        {
+            "xiyaowong/transparent.nvim",
+            lazy = true,
+        },
 
         {
             "folke/todo-comments.nvim",
             dependencies = { "nvim-lua/plenary.nvim" },
+            lazy = true,
         },
-
         "dracula/vim",
         {
             'j-hui/fidget.nvim',
             config = function()
                 require('fidget').setup{}
-            end
+            end,
+            lazy = true,
         },
         {
             "christoomey/vim-tmux-navigator",
@@ -236,8 +207,12 @@ require("lazy").setup({
                 { "<c-l>", "<cmd><C-U>TmuxNavigateRight<cr>" },
                 { "<c-\\>", "<cmd><C-U>TmuxNavigatePrevious<cr>" },
             },
+            lazy = true
         },
-        "DragonflyRobotics/ros2-nvim",
+        {
+            "DragonflyRobotics/ros2-nvim",
+            lazy = true,
+        },
         "lewis6991/gitsigns.nvim",
         {
             "NeogitOrg/neogit",
@@ -249,20 +224,37 @@ require("lazy").setup({
                 "nvim-telescope/telescope.nvim", -- optional
                 "ibhagwan/fzf-lua",              -- optional
             },
-            config = true
+            config = true,
+            lazy = true,
         },
-        "petertriho/nvim-scrollbar",
-        "kevinhwang91/nvim-hlslens",
+        {
+            "petertriho/nvim-scrollbar",
+            lazy = true
+        },
+        {
+            "kevinhwang91/nvim-hlslens",
+            lazy = true
+        },
         {
             'Wansmer/treesj',
             dependencies = { 'nvim-treesitter/nvim-treesitter' }, -- if you install parsers with `nvim-treesitter`
             config = function()
                 require('treesj').setup({--[[ your config ]]})
             end,
+            lazy = true
         },
-        "andymass/vim-matchup",
-        "RRethy/vim-illuminate",
-        "cshuaimin/ssr.nvim",
+        {
+            "andymass/vim-matchup",
+            lazy = true,
+        },
+        {
+            "RRethy/vim-illuminate",
+            lazy = true,
+        },
+        {
+            "cshuaimin/ssr.nvim",
+            lazy = true,
+        },
         {
             "gbprod/yanky.nvim",
             dependencies = {
@@ -292,13 +284,20 @@ require("lazy").setup({
                 { "=p", "<Plug>(YankyPutAfterFilter)", desc = "Put after applying a filter" },
                 { "=P", "<Plug>(YankyPutBeforeFilter)", desc = "Put before applying a filter" },
             },
+            lazy = true
         },
-        'mhinz/vim-startify',
+        {
+            'mhinz/vim-startify',
+            lazy = true
+        },
         {
             'akinsho/bufferline.nvim',
             dependencies = 'nvim-tree/nvim-web-devicons'
         },
-        "mfussenegger/nvim-treehopper"
+        {
+            "mfussenegger/nvim-treehopper",
+            lazy = true
+        }
     }
 })
 

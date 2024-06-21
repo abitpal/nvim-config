@@ -3,8 +3,6 @@ require('hlslens').setup({
 require("scrollbar.handlers.search").handler.show(plist.start_pos)
 end,
 })
-
-
 local kopts = {noremap = true, silent = true}
 
 vim.api.nvim_set_keymap('n', 'n',
