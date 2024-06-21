@@ -31,6 +31,7 @@ vim.keymap.set('n', '<C-j>', [[<Esc><C-w><down>]])
 vim.keymap.set('n', '<C-h>', [[<Esc><C-w><left>]])
 vim.keymap.set('n', '<C-l>', [[<Esc><C-w><right>]])
 
+vim.keymap.set('n', '<C-U>', '<CMD>lua require("tsht").nodes()<CR>')
 
 vim.keymap.set('n', '<C-Up>', [[<Esc><C-w><up>]])
 vim.keymap.set('n', '<C-Down>', [[<Esc><C-w><down>]])

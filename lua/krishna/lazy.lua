@@ -298,6 +298,7 @@ require("lazy").setup({
             'akinsho/bufferline.nvim',
             dependencies = 'nvim-tree/nvim-web-devicons'
         },
+        "mfussenegger/nvim-treehopper"
     }
 })
 
