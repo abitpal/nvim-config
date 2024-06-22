@@ -1,118 +1,111 @@
-require("mapx").setup({
-	global = true,
+local m = require("mapx").setup({
+    global = true,
+    whichkey = false,
 })
 
 vim.g.mapleader = " "
-vim.keymap.set("n", "<leader>pv", ":NvimTreeFocus<CR>")
-vim.keymap.set("n", "<leader>pc", ":NvimTreeClose<CR>")
-vim.keymap.set("n", "<leader>pr", ":NvimTreeRefresh<CR>")
-vim.keymap.set("n", "<leader>t", ":Trouble<CR>")
-vim.keymap.set("n", "<leader>s", ":Sad<CR>")
-vim.keymap.set("n", "<leader>u", ":UndotreeToggle<CR>")
-vim.keymap.set("n", "<leader>G", ":Neogit<CR>")
+
+-- NvimTree
+nnoremap("<leader>pv", ":NvimTreeFocus<CR>")
+nnoremap("<leader>pc", ":NvimTreeClose<CR>")
+nnoremap("<leader>pr", ":NvimTreeRefresh<CR>")
+
+-- Trouble
+nnoremap("<leader>t", ":Trouble<CR>")
+
+-- Sad
+nnoremap("<leader>s", ":Sad<CR>")
+
+-- Undotree
+nnoremap("<leader>u", ":UndotreeToggle<CR>")
+
+-- Neogit
+nnoremap("<leader>G", ":Neogit<CR>")
+
+-- Yanky
 noremap("<leader>y", [["+y]], "silent")
 noremap("<leader>p", [["+p]], "silent")
-vim.keymap.set({"n","x"}, "p", "<Plug>(YankyPutAfter)")
-vim.keymap.set({"n","x"}, "P", "<Plug>(YankyPutBefore)")
-vim.keymap.set({"n","x"}, "gp", "<Plug>(YankyGPutAfter)")
-vim.keymap.set({"n","x"}, "gP", "<Plug>(YankyGPutBefore)")
+xnoremap("p", "<Plug>(YankyPutAfter)")
+xnoremap("P", "<Plug>(YankyPutBefore)")
+xnoremap("gp", "<Plug>(YankyGPutAfter)")
+xnoremap("gP", "<Plug>(YankyGPutBefore)")
 
-vim.keymap.set("n", "<c-p>", "<Plug>(YankyPreviousEntry)")
-vim.keymap.set("n", "<c-n>", "<Plug>(YankyNextEntry)")
+nnoremap("<c-p>", "<Plug>(YankyPreviousEntry)")
+nnoremap("<c-n>", "<Plug>(YankyNextEntry)")
 
+-- Indentation in visual mode
 xnoremap("<", "<gv")
 xnoremap(">", ">gv")
---vim.keymap.set("n", "<F5>", ":sp<bar>term<cr><c-w>J:resize10<cr>i")
 
-vim.keymap.set('t', '<Esc>', [[<C-\><C-n>]])
+-- Terminal mode
+tnoremap("<Esc>", [[<C-\><C-n>]])
 
-vim.keymap.set('n', '<C-k>', [[<Esc><C-w><up>]])
-vim.keymap.set('n', '<C-j>', [[<Esc><C-w><down>]])
-vim.keymap.set('n', '<C-h>', [[<Esc><C-w><left>]])
-vim.keymap.set('n', '<C-l>', [[<Esc><C-w><right>]])
+-- Navigation in normal mode
+nnoremap("<C-Up>", "<Esc><C-w><up>")
+nnoremap("<C-Down>", "<Esc><C-w><down>")
+nnoremap("<C-Left>", "<Esc><C-w><left>")
+nnoremap("<C-Right>", "<Esc><C-w><right>")
 
-vim.keymap.set('n', '<C-U>', '<CMD>lua require("tsht").nodes()<CR>')
+-- Split and term
+nnoremap("<F5>", ":set splitright<cr>:vs<cr><C-Right><Esc>:term<cr>i")
 
-vim.keymap.set('n', '<C-Up>', [[<Esc><C-w><up>]])
-vim.keymap.set('n', '<C-Down>', [[<Esc><C-w><down>]])
-vim.keymap.set('n', '<C-Left>', [[<Esc><C-w><left>]])
-vim.keymap.set('n', '<C-Right>', [[<Esc><C-w><right>]])
-vim.keymap.set("n", "<F5>", ":set splitright<cr>:vs<cr><C-Right><Esc>:term<cr>i")
-vim.keymap.set("n", "<leader>fs", "<CMD>Telescope live_grep<CR>")
-vim.keymap.set("n", "<leader>ff", "<CMD>Telescope find_files<CR>")
-vim.keymap.set("n", "<leader>gg", "<CMD>Telescope git_files<CR>")
-vim.keymap.set("n", "<leader>gs", "<CMD>Telescope git_status<CR>")
+-- Telescope
+nnoremap("<leader>fs", "<CMD>Telescope live_grep<CR>")
+nnoremap("<leader>ff", "<CMD>Telescope find_files<CR>")
+nnoremap("<leader>gg", "<CMD>Telescope git_files<CR>")
+nnoremap("<leader>gs", "<CMD>Telescope git_status<CR>")
 
-vim.api.nvim_set_keymap("n", "<leader>as", ":ASToggle<CR>", {})
--- vim.keymap.set("n", "<Esc>", "<C-_><C-n>")
+-- ASToggle
+nnoremap("<leader>as", ":ASToggle<CR>")
+
+-- Scrolling
 nnoremap("j", "gj")
 nnoremap("k", "gk")
 nnoremap("<up>", "<nop>")
 nnoremap("<down>", "<nop>")
 nnoremap("<left>", "<nop>")
 nnoremap("<right>", "<nop>")
-vim.keymap.set('n', '<leader>c', ':TagbarToggle<CR>')
--- TPOPE COMMENTARY vim.keymap.set('n', '<C-/>', ':Commentary<CR>')
 
+-- Tagbar
+nnoremap("<leader>c", ":TagbarToggle<CR>")
 
+-- Harpoon
 local mark = require("harpoon.mark")
 local ui = require("harpoon.ui")
+nnoremap("<leader>ha", mark.add_file)
+nnoremap("<leader>hs", ui.toggle_quick_menu)
+nnoremap("<leader>hh", ":Telescope harpoon marks<CR>")
 
-vim.keymap.set("n", "<leader>ha", mark.add_file)
-vim.keymap.set("n", "<leader>hs", ui.toggle_quick_menu)
-vim.keymap.set("n", "<leader>hh", ":Telescope harpoon marks<CR>")
--- comand for new tab in vim
-vim.keymap.set("n", "<leader>bc", ":tabnew<CR>:NvimTreeFocus<CR>")
-vim.keymap.set("n", "<leader>bd", ":bd<CR>")
-vim.keymap.set("n", "<leader>bp", ":bp<CR>")
-vim.keymap.set("n", "<leader>bn", ":bn<CR>")
-vim.keymap.set("n", "<leader>bb", ":Telescope buffers<CR>")
-vim.api.nvim_set_keymap('n', '<leader>b', ':lua jump_to_buffer(vim.fn.input("Buffer: "))<CR>', { noremap = true, silent = true })
+-- Tabs and buffers
+nnoremap("<leader>bc", ":tabnew<CR>:NvimTreeFocus<CR>")
+nnoremap("<leader>bx", ":bd<CR>")
+nnoremap("<leader>bp", ":bp<CR>")
+nnoremap("<leader>bn", ":bn<CR>")
+nnoremap("<leader>bb", ":Telescope buffers<CR>")
+nnoremap("<leader>b", ':lua jump_to_buffer(vim.fn.input("Buffer: "))<CR>', { silent = true })
 
-vim.keymap.set("n", "<C-b>", ":BuildCMake<CR>")
-vim.keymap.set("n", "<C-e>", ":lua RunProgramInFloatingWindow()<CR>")
+-- CMake and program execution
+nnoremap("<C-b>", ":BuildCMake<CR>")
+nnoremap("<C-e>", ":lua RunProgramInFloatingWindow()<CR>")
 
-vim.keymap.set("n", "<leader>m", ":Telescope ros2-nvim topic_telescope<CR>")
+-- ROS2
+nnoremap("<leader>m", ":Telescope ros2-nvim topic_telescope<CR>")
 
+-- TodoTelescope
+nnoremap("<leader>l", ":TodoTelescope<CR>")
 
-vim.keymap.set("n", "<leader>h1", function() ui.nav_file(1) end)
-vim.keymap.set("n", "<leader>h2", function() ui.nav_file(2) end)
-vim.keymap.set("n", "<leader>h3", function() ui.nav_file(3) end)
-vim.keymap.set("n", "<leader>h4", function() ui.nav_file(4) end)
-vim.keymap.set("n", "<leader>h5", function() ui.nav_file(5) end)
-vim.keymap.set("n", "<leader>h6", function() ui.nav_file(6) end)
-vim.keymap.set("n", "<leader>h7", function() ui.nav_file(7) end)
-vim.keymap.set("n", "<leader>h8", function() ui.nav_file(8) end)
-vim.keymap.set("n", "<leader>h9", function() ui.nav_file(9) end)
+-- Treesitter toggle
+nnoremap("<S-Tab>", "<cmd>lua require('treesj').toggle()<cr>", { silent = true })
 
-vim.keymap.set("n", "<leader>l", ":TodoTelescope<CR>")
-vim.api.nvim_set_keymap("n", "<S-Tab>", "<cmd>lua require('treesj').toggle()<cr>", { noremap = true, silent = true })
+-- SSR
+nnoremap("<leader>Sr", function() require("ssr").open() end)
 
-vim.keymap.set({ "n", "x" }, "<leader>Sr", function() require("ssr").open() end)
+-- Copilot and CopilotChat
+vim.keymap.set('i', '<C-J>', 'copilot#Accept("\\<CR>")', { expr = true, replace_keycodes = false })
+nnoremap('<leader>zcq', [[:lua local input = vim.fn.input("Quick Chat: ") if input ~= "" then require("CopilotChat").ask(input, { selection = require("CopilotChat.select").buffer }) end<CR>]], { silent = true })
+nnoremap('<leader>zch', [[:lua local actions = require("CopilotChat.actions") require("CopilotChat.integrations.telescope").pick(actions.help_actions())<CR>]], { silent = true })
+nnoremap('<leader>zcp', [[:lua local actions = require("CopilotChat.actions") require("CopilotChat.integrations.telescope").pick(actions.prompt_actions())<CR>]], { silent = true })
+nnoremap('<leader>zcc', [[:lua require("CopilotChat").toggle()<CR>]], { silent = true })
 
-vim.api.nvim_set_keymap('n', '<leader>zcq', [[:lua << EOF
-    local input = vim.fn.input("Quick Chat: ")
-    if input ~= "" then
-        require("CopilotChat").ask(input, { selection = require("CopilotChat.select").buffer })
-    end
-EOF
-]], {noremap = true, silent = true})
-
-vim.api.nvim_set_keymap('n', '<leader>zch', [[:lua << EOF
-    local actions = require("CopilotChat.actions")
-    require("CopilotChat.integrations.telescope").pick(actions.help_actions())
-EOF
-]], {noremap = true, silent = true})
-
-vim.api.nvim_set_keymap('n', '<leader>zcp', [[:lua << EOF
-    local actions = require("CopilotChat.actions")
-    require("CopilotChat.integrations.telescope").pick(actions.prompt_actions())
-EOF
-]], {noremap = true, silent = true})
-
-
-vim.api.nvim_set_keymap('n', '<leader>zcc', [[:lua << EOF
-    require("CopilotChat").toggle() 
-EOF
-]], {noremap = true, silent = true})
-
+-- TSHT
+nnoremap("<C-U>", "<CMD>lua require('tsht').nodes()<CR>")

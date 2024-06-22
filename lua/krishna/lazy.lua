@@ -59,7 +59,7 @@ require("lazy").setup({
         "ThePrimeagen/harpoon",
         {
             "mbbill/undotree",
-            lazy = true,
+            lazy = false,
         },
         {
             "tpope/vim-fugitive",
@@ -140,7 +140,7 @@ require("lazy").setup({
                 require("which-key").setup({
                 })
             end,
-            enabled = false
+            enabled = false 
         },
         {
 
@@ -225,7 +225,7 @@ require("lazy").setup({
                 "ibhagwan/fzf-lua",              -- optional
             },
             config = true,
-            lazy = true,
+            lazy = false,
         },
         {
             "petertriho/nvim-scrollbar",
