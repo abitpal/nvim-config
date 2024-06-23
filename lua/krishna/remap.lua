@@ -85,8 +85,12 @@ nnoremap("<leader>bb", ":Telescope buffers<CR>")
 nnoremap("<leader>b", ':lua jump_to_buffer(vim.fn.input("Buffer: "))<CR>', { silent = true })
 
 -- CMake and program execution
-nnoremap("<C-b>", ":BuildCMake<CR>")
-nnoremap("<C-e>", ":lua RunProgramInFloatingWindow()<CR>")
+nnoremap("<C-b>", ":BuildGeneric<CR>")
+nnoremap("<C-r>", ":RunGeneric<CR>")
+nnoremap("<M-e>", ":copen<CR>")
+nnoremap("<M-c>", ":cclose<CR>")
+nnoremap("<M-n>", ":cnext<CR>")
+nnoremap("<M-p>", ":cprev<CR>")
 
 -- ROS2
 nnoremap("<leader>m", ":Telescope ros2-nvim topic_telescope<CR>")
@@ -101,7 +105,6 @@ nnoremap("<S-Tab>", "<cmd>lua require('treesj').toggle()<cr>", { silent = true }
 nnoremap("<leader>Sr", function() require("ssr").open() end)
 
 -- Copilot and CopilotChat
-vim.keymap.set('i', '<C-J>', 'copilot#Accept("\\<CR>")', { expr = true, replace_keycodes = false })
 nnoremap('<leader>zcq', [[:lua local input = vim.fn.input("Quick Chat: ") if input ~= "" then require("CopilotChat").ask(input, { selection = require("CopilotChat.select").buffer }) end<CR>]], { silent = true })
 nnoremap('<leader>zch', [[:lua local actions = require("CopilotChat.actions") require("CopilotChat.integrations.telescope").pick(actions.help_actions())<CR>]], { silent = true })
 nnoremap('<leader>zcp', [[:lua local actions = require("CopilotChat.actions") require("CopilotChat.integrations.telescope").pick(actions.prompt_actions())<CR>]], { silent = true })

@@ -183,6 +183,159 @@ function RunProgramInFloatingWindow()
     end
 end
 
+function RunGeneric()
+    -- Define the size of the floating window
+    local width = 80
+    local height = 20
+
+    -- Create a scratch buffer for the program output
+    local buf = vim.api.nvim_create_buf(false, true)
+
+    -- Get the current UI dimensions
+    local ui = vim.api.nvim_list_uis()[1]
+
+    -- Calculate the position of the floating window
+    local opts = {
+        relative = 'editor',
+        width = width,
+        height = height,
+        col = math.floor((ui.width - width) / 2),
+        row = math.floor((ui.height - height) / 2),
+        anchor = 'NW',
+        style = 'minimal',
+    }
+
+    -- Open the floating window
+    local win = vim.api.nvim_open_win(buf, true, opts)
+
+    -- Define the function to close the floating window locally
+    local function close_floating_window()
+        vim.api.nvim_win_close(win, true)
+    end
+
+    -- Set key mappings to close the floating window with any key
+    local keymaps = {'<esc>', '<CR>', 'q', '<space>'}
+    for _, key in ipairs(keymaps) do
+        vim.api.nvim_buf_set_keymap(buf, 'n', key, '', {
+            noremap = true,
+            silent = true,
+            callback = close_floating_window
+        })
+    end
+
+    -- Function to set the cursor to the last line
+    local function set_cursor_to_last_line()
+        local line_count = vim.api.nvim_buf_line_count(buf)
+        vim.api.nvim_win_set_cursor(win, {line_count, 0})
+    end
+
+    program_cmd = "make run"
+    -- Run the program and capture its output
+    local job_id = vim.fn.jobstart(program_cmd, {
+        on_stdout = function(_, data)
+            -- Iterate over each line of the program's output
+            for _, line in ipairs(data) do
+                -- Convert each line to string and set it to buffer
+                vim.api.nvim_buf_set_lines(buf, -1, -1, false, {tostring(line)})
+            end
+        end,
+        on_stderr = function(_, data)
+            -- Iterate over each line of the program's error output
+            for _, line in ipairs(data) do
+                -- Convert each line to string and set it to buffer
+                vim.api.nvim_buf_set_lines(buf, -1, -1, false, {tostring(line)})
+            end
+            set_cursor_to_last_line()
+        end,
+        on_exit = function(_, exit_code)
+            if exit_code ~= 0 then
+                vim.api.nvim_buf_set_lines(buf, -1, -1, false, {"Program exited with error code: " .. exit_code})
+            end
+        end,
+    })
+
+    -- Check if the job was successfully started
+    if job_id <= 0 then
+        vim.api.nvim_buf_set_lines(buf, -1, -1, false, {"Failed to start the program."})
+    end
+end
+
+function BuildGeneric()
+    -- Define the size of the floating window
+    local width = 80
+    local height = 20
+
+    -- Create a scratch buffer for the program output
+    local buf = vim.api.nvim_create_buf(false, true)
+
+    -- Get the current UI dimensions
+    local ui = vim.api.nvim_list_uis()[1]
+
+    -- Calculate the position of the floating window
+    local opts = {
+        relative = 'editor',
+        width = width,
+        height = height,
+        col = math.floor((ui.width - width) / 2),
+        row = math.floor((ui.height - height) / 2),
+        anchor = 'NW',
+        style = 'minimal',
+    }
+
+    -- Open the floating window
+    local win = vim.api.nvim_open_win(buf, true, opts)
+
+    -- Define the function to close the floating window locally
+    local function close_floating_window()
+        vim.api.nvim_win_close(win, true)
+    end
+
+    -- Set key mappings to close the floating window with any key
+    local keymaps = {'<esc>', '<CR>', 'q', '<space>'}
+    for _, key in ipairs(keymaps) do
+        vim.api.nvim_buf_set_keymap(buf, 'n', key, '', {
+            noremap = true,
+            silent = true,
+            callback = close_floating_window
+        })
+    end
+
+    -- Function to set the cursor to the last line
+    local function set_cursor_to_last_line()
+        local line_count = vim.api.nvim_buf_line_count(buf)
+        vim.api.nvim_win_set_cursor(win, {line_count, 0})
+    end
+
+    program_cmd = "make"
+    -- Run the program and capture its output
+    local job_id = vim.fn.jobstart(program_cmd, {
+        on_stdout = function(_, data)
+            -- Iterate over each line of the program's output
+            for _, line in ipairs(data) do
+                -- Convert each line to string and set it to buffer
+                vim.api.nvim_buf_set_lines(buf, -1, -1, false, {tostring(line)})
+            end
+        end,
+        on_stderr = function(_, data)
+            -- Iterate over each line of the program's error output
+            for _, line in ipairs(data) do
+                -- Convert each line to string and set it to buffer
+                vim.api.nvim_buf_set_lines(buf, -1, -1, false, {tostring(line)})
+            end
+            set_cursor_to_last_line()
+        end,
+        on_exit = function(_, exit_code)
+            if exit_code ~= 0 then
+                vim.api.nvim_buf_set_lines(buf, -1, -1, false, {"Program exited with error code: " .. exit_code})
+            end
+        end,
+    })
+
+    -- Check if the job was successfully started
+    if job_id <= 0 then
+        vim.api.nvim_buf_set_lines(buf, -1, -1, false, {"Failed to start the program."})
+    end
+end
 
 
 -- Function to jump to a buffer matching partial name
@@ -191,3 +344,5 @@ local function jump_to_buffer(partial_name)
 end
 
 _G.jump_to_buffer = jump_to_buffer
+vim.api.nvim_create_user_command('BuildGeneric', BuildGeneric, {})
+vim.api.nvim_create_user_command('RunGeneric', RunGeneric, {})

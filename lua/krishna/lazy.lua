@@ -18,7 +18,14 @@ require("lazy").setup({
         -- add LazyVim and import its plugins
 
 
-        "tjdevries/colorbuddy.nvim",
+        {
+            "dracula/vim",
+            enabled = false,
+        },
+        {
+            "folke/tokyonight.nvim",
+            enabled = true,
+        },
         {
             'marko-cerovac/material.nvim',
             enabled=false,
@@ -183,7 +190,6 @@ require("lazy").setup({
             dependencies = { "nvim-lua/plenary.nvim" },
             lazy = true,
         },
-        "dracula/vim",
         {
             'j-hui/fidget.nvim',
             config = function()
@@ -288,7 +294,7 @@ require("lazy").setup({
         },
         {
             'mhinz/vim-startify',
-            lazy = true
+            lazy = false 
         },
         {
             'akinsho/bufferline.nvim',
