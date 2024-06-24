@@ -223,6 +223,15 @@ function RunGeneric()
         })
     end
 
+    -- Set buffer options for syntax highlighting with Treesitter
+    vim.api.nvim_buf_set_option(buf, 'syntax', 'treesitter')
+
+    -- Set window options for syntax highlighting with Treesitter
+    vim.api.nvim_win_set_option(win, 'winhighlight', 'Normal:TSSyntax')
+    -- Enable Treesitter syntax highlighting for Rust in the buffer
+    vim.api.nvim_buf_set_option(buf, 'filetype', "rust") -- TODO make this dynamic
+    vim.api.nvim_buf_set_option(buf, 'syntax', 'on')
+
     -- Function to set the cursor to the last line
     local function set_cursor_to_last_line()
         local line_count = vim.api.nvim_buf_line_count(buf)
@@ -300,6 +309,14 @@ function BuildGeneric()
         })
     end
 
+    -- Set buffer options for syntax highlighting with Treesitter
+    vim.api.nvim_buf_set_option(buf, 'syntax', 'treesitter')
+
+    -- Set window options for syntax highlighting with Treesitter
+    vim.api.nvim_win_set_option(win, 'winhighlight', 'Normal:TSSyntax')
+    -- Enable Treesitter syntax highlighting for Rust in the buffer
+    vim.api.nvim_buf_set_option(buf, 'filetype', "rust") -- TODO make this dynamic
+    vim.api.nvim_buf_set_option(buf, 'syntax', 'on')
     -- Function to set the cursor to the last line
     local function set_cursor_to_last_line()
         local line_count = vim.api.nvim_buf_line_count(buf)
