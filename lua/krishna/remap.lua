@@ -85,12 +85,16 @@ nnoremap("<leader>bb", ":Telescope buffers<CR>")
 nnoremap("<leader>b", ':lua jump_to_buffer(vim.fn.input("Buffer: "))<CR>', { silent = true })
 
 -- CMake and program execution
-nnoremap("<C-b>", ":BuildGeneric<CR>")
-nnoremap("<C-r>", ":RunGeneric<CR>")
-nnoremap("<M-e>", ":copen<CR>")
-nnoremap("<M-c>", ":cclose<CR>")
-nnoremap("<M-n>", ":cnext<CR>")
-nnoremap("<M-p>", ":cprev<CR>")
+nnoremap("<M-l>", "<cmd>MakeitOpen<CR>")
+nnoremap("<M-r>", "<cmd>MakeitRedo<CR>")
+nnoremap("<M-x>", "<cmd>MakeitBuild<CR>")
+nnoremap("<M-t>", "<cmd>MakeitToggleResults<CR>")
+-- nnoremap("<C-b>", ":BuildGeneric<CR>")
+-- nnoremap("<C-r>", ":RunGeneric<CR>")
+-- nnoremap("<M-e>", ":copen<CR>")
+-- nnoremap("<M-c>", ":cclose<CR>")
+-- nnoremap("<M-n>", ":cnext<CR>")
+-- nnoremap("<M-p>", ":cprev<CR>")
 
 -- ROS2
 nnoremap("<leader>m", ":Telescope ros2-nvim topic_telescope<CR>")

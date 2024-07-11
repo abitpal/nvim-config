@@ -15,7 +15,7 @@ cmp.setup({
         ['<C-Space>'] = cmp.mapping.complete(),
 
         -- Navigate between snippet placeholders
-        ['<C-j>'] = cmp.mapping(function(fallback)
+        ['<M-j>'] = cmp.mapping(function(fallback)
             if cmp.visible() then
                 cmp.select_next_item()
             elseif luasnip.expand_or_jumpable() then
@@ -25,7 +25,7 @@ cmp.setup({
             end
         end, { 'i', 's' }),
 
-        ['<C-k>'] = cmp.mapping(function(fallback)
+        ['<M-k>'] = cmp.mapping(function(fallback)
             if cmp.visible() then
                 cmp.select_prev_item()
             elseif luasnip.jumpable(-1) then
@@ -46,7 +46,6 @@ cmp.setup({
         { name = 'path' },
     },
 })
-
 local lsp_zero = require('lsp-zero')
 
 lsp_zero.on_attach(function(client, bufnr)
