@@ -328,5 +328,6 @@ require("lazy").setup({
 			},
 		},
 		"mhartington/formatter.nvim",
+        { "catppuccin/nvim", name = "catppuccin", priority = 1000 }
 	},
 })
