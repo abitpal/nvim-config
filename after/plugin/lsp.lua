@@ -79,7 +79,7 @@ lsp_zero.set_sign_icons({
 
 require('mason').setup({})
 require('mason-lspconfig').setup({
-    ensure_installed = {"clangd", "cmake", "rust_analyzer", "black", "pylsp", "prettier"},
+    ensure_installed = {"clangd", "cmake", "rust_analyzer", "pylsp"},
     handlers = {
         function(server_name)
             require('lspconfig')[server_name].setup({})
