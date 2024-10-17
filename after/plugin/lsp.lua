@@ -123,3 +123,13 @@ lspconfig.pylsp.setup({
         }
     }
 })
+
+
+local project_settings_path = vim.fn.getcwd() .. "/rust-analyzer.json"
+if vim.fn.filereadable(project_settings_path) == 1 then
+    local settings = vim.fn.json_decode(vim.fn.readfile(project_settings_path))
+    require('lspconfig').rust_analyzer.setup({
+        settings = settings
+    })
+end
+
