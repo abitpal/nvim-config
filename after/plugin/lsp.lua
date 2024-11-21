@@ -14,7 +14,7 @@ local border = {
 }
 
 -- Highlight the border with blue color
-vim.api.nvim_set_hl(0, 'FloatBorder', { fg = '#0000FF' })  -- Set the border color to blue
+vim.api.nvim_set_hl(0, 'FloatBorder', { fg = '#FFFFFF' })  -- Set the border color to blue
 
 -- Apply border to floating windows in LSP, completion, and diagnostics
 vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
