@@ -98,6 +98,8 @@ require("lazy").setup({
                 "saadparwaiz1/cmp_luasnip",
             },
         },
+        'stevearc/conform.nvim',
+        'nvimtools/none-ls.nvim',
         {
 
             "Pocco81/auto-save.nvim",

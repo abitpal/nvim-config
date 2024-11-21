@@ -1,1 +1,2 @@
--- vim.cmd "TransparentEnable"
+require('transparent')
+vim.cmd "TransparentEnable"
