@@ -311,7 +311,6 @@ require("lazy").setup({
             "Zeioth/makeit.nvim",
             cmd = { "MakeitOpen", "MakeitToggleResults", "MakeitRedo" },
             dependencies = { "stevearc/overseer.nvim" },
-            opts = {},
         },
         { -- The task runner we use
             "stevearc/overseer.nvim",
