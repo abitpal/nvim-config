@@ -4,35 +4,72 @@ local luasnip = require('luasnip')
 local lsp_zero = require('lsp-zero')
 local lspconfig = require('lspconfig')
 
+vim.cmd [[autocmd! ColorScheme * highlight NormalFloat guibg=#1f2335]]
+vim.cmd [[autocmd! ColorScheme * highlight FloatBorder guifg=white guibg=#1f2335]]
+vim.cmd [[autocmd! ColorScheme * highlight NoiceBorder guifg=white guibg=#1f2335]]
 
 
--- Define custom border
+
 local border = {
-    { "┌", "FloatBorder" }, { "─", "FloatBorder" }, { "┐", "FloatBorder" },
-    { "│", "FloatBorder" }, { "┘", "FloatBorder" }, { "─", "FloatBorder" },
-    { "└", "FloatBorder" }, { "│", "FloatBorder" }
+      {"🭽", "FloatBorder"},
+      {"▔", "FloatBorder"},
+      {"🭾", "FloatBorder"},
+      {"▕", "FloatBorder"},
+      {"🭿", "FloatBorder"},
+      {"▁", "FloatBorder"},
+      {"🭼", "FloatBorder"},
+      {"▏", "FloatBorder"},
 }
 
--- Highlight the border with blue color
-vim.api.nvim_set_hl(0, 'FloatBorder', { fg = '#FFFFFF' })  -- Set the border color to blue
+-- LSP settings (for overriding per client)
+local handlers =  {
+  ["textDocument/hover"] =  vim.lsp.with(vim.lsp.handlers.hover, {border = border}),
+  ["textDocument/signatureHelp"] =  vim.lsp.with(vim.lsp.handlers.signature_help, {border = border }),
+}
 
--- Apply border to floating windows in LSP, completion, and diagnostics
-vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
-    border = border,  -- Apply the custom border
-})
+-- To instead override globally
+local orig_util_open_floating_preview = vim.lsp.util.open_floating_preview
+function vim.lsp.util.open_floating_preview(contents, syntax, opts, ...)
+  opts = opts or {}
+  opts.border = opts.border or border
+  return orig_util_open_floating_preview(contents, syntax, opts, ...)
+end
 
-vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, {
-    border = border,  -- Apply the custom border
-})
+local M = {}
 
-vim.diagnostic.config({
-    virtual_text = true,  -- Enable virtual text for diagnostics
-    signs = true,         -- Enable signs for diagnostics
-    underline = true,     -- Underline errors/warnings
-    float = {
-        border = border,  -- Apply the custom border to diagnostic floats
-    },
-})
+M.icons = {
+  Class = " ",
+  Color = " ",
+  Constant = " ",
+  Constructor = " ",
+  Enum = " ",
+  EnumMember = " ",
+  Field = "󰄶 ",
+  File = " ",
+  Folder = " ",
+  Function = " ",
+  Interface = "󰜰",
+  Keyword = "󰌆 ",
+  Method = "ƒ ",
+  Module = "󰏗 ",
+  Property = " ",
+  Snippet = "󰘍 ",
+  Struct = " ",
+  Text = " ",
+  Unit = " ",
+  Value = "󰎠 ",
+  Variable = " ",
+}
+
+
+function M.setup()
+  local kinds = vim.lsp.protocol.CompletionItemKind
+  for i, kind in ipairs(kinds) do
+    kinds[i] = M.icons[kind] or kind
+  end
+end
+
+M.setup()
 
 -- ========================
 -- Completion Configuration
@@ -149,6 +186,7 @@ require('mason-lspconfig').setup({
 
 -- Python: pyright settings
 lspconfig.pyright.setup({
+    handlers = handlers,
     settings = {
         python = {
             analysis = {
@@ -162,6 +200,7 @@ lspconfig.pyright.setup({
 
 -- Python: pylsp settings
 lspconfig.pylsp.setup({
+    handlers = handlers,
     settings = {
         pylsp = {
             plugins = {

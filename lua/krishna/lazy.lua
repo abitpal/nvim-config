@@ -33,8 +33,25 @@ require("lazy").setup({
             "folke/noice.nvim",
             event = "VeryLazy",
             opts = {
-                --        add any options here
+                presets = {
+                    lsp_doc_border = true,
+                },
+                views = {
+                    cmdline_popup = {
+                        border = {
+                            style = "rounded", -- Change this to your preferred border style
+                            highlight = "NoiceBorder", -- Add this line to set the highlight group
+                        },
+                    },
+                    popupmenu = {
+                        border = {
+                            style = "rounded", -- Change this to your preferred border style
+                            highlight = "NoiceBorder", -- Add this line to set the highlight group
+                        },
+                    },
+                },
             },
+
             dependencies = {
                 --        if you lazy-load any plugin below, make sure to add proper `module="..."` entries
                 "MunifTanjim/nui.nvim",
@@ -309,6 +326,7 @@ require("lazy").setup({
         },
         { -- This plugin
             "Zeioth/makeit.nvim",
+            -- dir = "/home/krishna/Documents/Github/makeit.nvim",
             cmd = { "MakeitOpen", "MakeitToggleResults", "MakeitRedo" },
             dependencies = { "stevearc/overseer.nvim" },
         },
