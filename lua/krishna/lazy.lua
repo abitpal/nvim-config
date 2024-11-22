@@ -117,6 +117,7 @@ require("lazy").setup({
         },
         'stevearc/conform.nvim',
         'nvimtools/none-ls.nvim',
+        'onsails/lspkind.nvim',
         {
 
             "Pocco81/auto-save.nvim",

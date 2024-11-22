@@ -3,6 +3,7 @@ local cmp = require('cmp')
 local luasnip = require('luasnip')
 local lsp_zero = require('lsp-zero')
 local lspconfig = require('lspconfig')
+local lspkind = require('lspkind')
 
 vim.cmd [[autocmd! ColorScheme * highlight NormalFloat guibg=#1f2335]]
 vim.cmd [[autocmd! ColorScheme * highlight FloatBorder guifg=white guibg=#1f2335]]
@@ -10,66 +11,22 @@ vim.cmd [[autocmd! ColorScheme * highlight NoiceBorder guifg=white guibg=#1f2335
 
 
 
-local border = {
-      {"🭽", "FloatBorder"},
-      {"▔", "FloatBorder"},
-      {"🭾", "FloatBorder"},
-      {"▕", "FloatBorder"},
-      {"🭿", "FloatBorder"},
-      {"▁", "FloatBorder"},
-      {"🭼", "FloatBorder"},
-      {"▏", "FloatBorder"},
-}
+local border = "rounded" 
 
 -- LSP settings (for overriding per client)
 local handlers =  {
-  ["textDocument/hover"] =  vim.lsp.with(vim.lsp.handlers.hover, {border = border}),
-  ["textDocument/signatureHelp"] =  vim.lsp.with(vim.lsp.handlers.signature_help, {border = border }),
+    ["textDocument/hover"] =  vim.lsp.with(vim.lsp.handlers.hover, {border = border}),
+    ["textDocument/signatureHelp"] =  vim.lsp.with(vim.lsp.handlers.signature_help, {border = border }),
 }
 
 -- To instead override globally
 local orig_util_open_floating_preview = vim.lsp.util.open_floating_preview
 function vim.lsp.util.open_floating_preview(contents, syntax, opts, ...)
-  opts = opts or {}
-  opts.border = opts.border or border
-  return orig_util_open_floating_preview(contents, syntax, opts, ...)
+    opts = opts or {}
+    opts.border = opts.border or border
+    return orig_util_open_floating_preview(contents, syntax, opts, ...)
 end
 
-local M = {}
-
-M.icons = {
-  Class = " ",
-  Color = " ",
-  Constant = " ",
-  Constructor = " ",
-  Enum = " ",
-  EnumMember = " ",
-  Field = "󰄶 ",
-  File = " ",
-  Folder = " ",
-  Function = " ",
-  Interface = "󰜰",
-  Keyword = "󰌆 ",
-  Method = "ƒ ",
-  Module = "󰏗 ",
-  Property = " ",
-  Snippet = "󰘍 ",
-  Struct = " ",
-  Text = " ",
-  Unit = " ",
-  Value = "󰎠 ",
-  Variable = " ",
-}
-
-
-function M.setup()
-  local kinds = vim.lsp.protocol.CompletionItemKind
-  for i, kind in ipairs(kinds) do
-    kinds[i] = M.icons[kind] or kind
-  end
-end
-
-M.setup()
 
 -- ========================
 -- Completion Configuration
@@ -125,6 +82,18 @@ cmp.setup({
         documentation = {
             border = border,  -- Apply the custom border to the documentation window
         },
+    },
+    formatting = {
+        format = lspkind.cmp_format({
+            mode = 'symbol', -- show only symbol annotations
+            maxwidth = 50,   -- prevent the popup from showing more than 50 characters
+            ellipsis_char = '...', -- truncate long labels with ellipsis
+            before = function(entry, vim_item)
+                -- You can customize vim_item here before it gets formatted by lspkind
+                vim_item.menu = entry.source.name
+                return vim_item
+            end,
+        }),
     },
 })
 
