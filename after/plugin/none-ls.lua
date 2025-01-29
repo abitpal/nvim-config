@@ -12,5 +12,6 @@ nullls.setup({
             end,
         }),
         nullls.builtins.formatting.black,
+        require("none-ls.diagnostics.ruff")
     }
 })

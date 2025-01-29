@@ -13,16 +13,14 @@ vim.opt.rtp:prepend(vim.env.LAZY or lazypath)
 require("lazy").setup({
 
     spec = {
-
-        -- add LazyVim and import its plugins
-
+        -- UI Plugins
         {
             "dracula/vim",
             enabled = false,
         },
         {
             "folke/tokyonight.nvim",
-            enabled = true,
+            enabled = false,
         },
         {
             "marko-cerovac/material.nvim",
@@ -61,82 +59,6 @@ require("lazy").setup({
                 -- "rcarriga/nvim-notify",
             },
         },
-        "b0o/mapx.nvim",
-        {
-
-            "nvim-telescope/telescope.nvim",
-
-            version = "0.1.3",
-
-            -- or                            , branch = '0.1.x',
-
-            dependencies = { "nvim-lua/plenary.nvim" },
-        },
-        { "nvim-treesitter/nvim-treesitter", build = ":TSUpdate" },
-        {
-            "nvim-treesitter/playground",
-            enabled = false,
-        },
-        "nvim-treesitter/nvim-treesitter-context",
-        "ThePrimeagen/harpoon",
-        {
-            "mbbill/undotree",
-            lazy = false,
-        },
-        {
-            "tpope/vim-fugitive",
-            lazy = true,
-        },
-        {
-            "VonHeikemen/lsp-zero.nvim",
-            --            branch = "v3.x",
-            dependencies = {
-
-                --- Uncomment these if you want to manage LSP servers from neovim
-
-                { "williamboman/mason.nvim" },
-
-                { "williamboman/mason-lspconfig.nvim" },
-
-                -- LSP Support
-
-                "neovim/nvim-lspconfig",
-
-                -- Autocompletion
-
-                "hrsh7th/nvim-cmp",
-
-                "hrsh7th/cmp-nvim-lsp",
-
-                "L3MON4D3/LuaSnip",
-
-                "rafamadriz/friendly-snippets",
-
-                "saadparwaiz1/cmp_luasnip",
-            },
-        },
-        'stevearc/conform.nvim',
-        'nvimtools/none-ls.nvim',
-        'onsails/lspkind.nvim',
-        {
-
-            "Pocco81/auto-save.nvim",
-
-            config = function()
-                require("auto-save").setup({
-                    enabled = true,
-                })
-            end,
-        },
-        {
-
-            "ray-x/sad.nvim",
-            dependencies = { "ray-x/guihua.lua", build = "cd lua/fzy && make" },
-            config = function()
-                require("sad").setup({})
-            end,
-            lazy = true,
-        },
         "nvim-tree/nvim-web-devicons",
         {
             "nvim-lualine/lualine.nvim",
@@ -146,28 +68,54 @@ require("lazy").setup({
             "preservim/tagbar",
             lazy = true,
         },
-        -- "tpope/vim-commentary",
-        {
-            "numToStr/Comment.nvim",
-            lazy = true,
-        },
         "nvim-tree/nvim-tree.lua",
-
         {
             "lukas-reineke/indent-blankline.nvim",
             lazy = true,
         },
         {
-            "folke/which-key.nvim",
-            config = function()
-                vim.o.timeout = true
-                vim.o.timeoutlen = 300
-                require("which-key").setup({})
-            end,
+            "xiyaowong/transparent.nvim",
+            lazy = true,
+        },
+        "norcalli/nvim-colorizer.lua",
+
+        -- Shortcut plugins
+        "b0o/mapx.nvim",
+
+        -- Editor and LSP
+        {
+            "nvim-telescope/telescope.nvim",
+            version = "0.1.3",
+            dependencies = { "nvim-lua/plenary.nvim" },
+        },
+        { "nvim-treesitter/nvim-treesitter", build = ":TSUpdate" },
+        {
+            "nvim-treesitter/playground",
             enabled = false,
         },
+        "nvim-treesitter/nvim-treesitter-context",
         {
-
+            "VonHeikemen/lsp-zero.nvim",
+            dependencies = {
+                { "williamboman/mason.nvim" },
+                { "williamboman/mason-lspconfig.nvim" },
+                "neovim/nvim-lspconfig",
+                "hrsh7th/nvim-cmp",
+                "hrsh7th/cmp-nvim-lsp",
+                "L3MON4D3/LuaSnip",
+                "rafamadriz/friendly-snippets",
+                "saadparwaiz1/cmp_luasnip",
+            },
+        },
+        'stevearc/conform.nvim',
+        {
+            "nvimtools/none-ls.nvim",
+            dependencies = {
+                "nvimtools/none-ls-extras.nvim",
+            },
+        },
+        'onsails/lspkind.nvim',
+        {
             "folke/trouble.nvim",
             opts = {}, -- for default options, refer to the configuration section for custom setup.
             cmd = "Trouble",
@@ -198,18 +146,25 @@ require("lazy").setup({
             lazy = true,
         },
         {
-            "xiyaowong/transparent.nvim",
-            lazy = true,
-        },
-
-        {
             "folke/todo-comments.nvim",
             dependencies = { "nvim-lua/plenary.nvim" },
             lazy = true,
         },
         {
-            "j-hui/fidget.nvim",
+            "DragonflyRobotics/ros2-nvim",
             lazy = true,
+        },
+
+        -- Navigation
+        "ThePrimeagen/harpoon",
+        {
+            "folke/which-key.nvim",
+            config = function()
+                vim.o.timeout = true
+                vim.o.timeoutlen = 300
+                require("which-key").setup({})
+            end,
+            enabled = false,
         },
         {
             "christoomey/vim-tmux-navigator",
@@ -229,8 +184,39 @@ require("lazy").setup({
             },
             lazy = true,
         },
+
+        -- Utilities
+        { "mbbill/undotree", lazy = false },
+        { "tpope/vim-fugitive", lazy = true },
         {
-            "DragonflyRobotics/ros2-nvim",
+            "Pocco81/auto-save.nvim",
+            config = function()
+                require("auto-save").setup({
+                    enabled = true,
+                })
+            end,
+        },
+        {
+            "ray-x/sad.nvim",
+            dependencies = { "ray-x/guihua.lua", build = "cd lua/fzy && make" },
+            config = function()
+                require("sad").setup({})
+            end,
+            lazy = true,
+        },
+        {
+            "numToStr/Comment.nvim",
+            lazy = true,
+        },
+
+
+
+
+
+
+
+        {
+            "j-hui/fidget.nvim",
             lazy = true,
         },
         "lewis6991/gitsigns.nvim",
@@ -313,10 +299,6 @@ require("lazy").setup({
             },
             lazy = true,
         },
-        -- {
-        -- 	"mhinz/vim-startify",
-        -- 	lazy = false,
-        -- },
         {
             "akinsho/bufferline.nvim",
             dependencies = "nvim-tree/nvim-web-devicons",
@@ -325,9 +307,8 @@ require("lazy").setup({
             "mfussenegger/nvim-treehopper",
             lazy = true,
         },
-        { -- This plugin
+        { 
             "Zeioth/makeit.nvim",
-            -- dir = "/home/krishna/Documents/Github/makeit.nvim",
             cmd = { "MakeitOpen", "MakeitToggleResults", "MakeitRedo" },
             dependencies = { "stevearc/overseer.nvim" },
         },
