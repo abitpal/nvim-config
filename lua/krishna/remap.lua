@@ -109,10 +109,15 @@ nnoremap("<S-Tab>", "<cmd>lua require('treesj').toggle()<cr>", { silent = true }
 nnoremap("<leader>Sr", function() require("ssr").open() end)
 
 -- Copilot and CopilotChat
-nnoremap('<leader>zcq', [[:lua local input = vim.fn.input("Quick Chat: ") if input ~= "" then require("CopilotChat").ask(input, { selection = require("CopilotChat.select").buffer }) end<CR>]], { silent = true })
-nnoremap('<leader>zch', [[:lua local actions = require("CopilotChat.actions") require("CopilotChat.integrations.telescope").pick(actions.help_actions())<CR>]], { silent = true })
-nnoremap('<leader>zcp', [[:lua local actions = require("CopilotChat.actions") require("CopilotChat.integrations.telescope").pick(actions.prompt_actions())<CR>]], { silent = true })
-nnoremap('<leader>zcc', [[:lua require("CopilotChat").toggle()<CR>]], { silent = true })
+-- Normal mode mappings
+vim.api.nvim_set_keymap('n', '<leader>cc', "<cmd>CodeCompanion<CR>", { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<leader>zca', "<cmd>CodeCompanionActions<CR>", { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<leader>ct', "<cmd>CodeCompanionChat Toggle<CR>", { noremap = true, silent = true })
+
+-- Visual mode mappings
+vim.api.nvim_set_keymap('v', '<leader>cc', "<cmd>CodeCompanion<CR>", { noremap = true, silent = true })
+vim.api.nvim_set_keymap('v', '<leader>ca', "<cmd>CodeCompanionActions<CR>", { noremap = true, silent = true })
+vim.api.nvim_set_keymap('v', '<leader>ct', "<cmd>CodeCompanionChat Toggle<CR>", { noremap = true, silent = true })
 
 -- TSHT
 nnoremap("<C-U>", "<CMD>lua require('tsht').nodes()<CR>")

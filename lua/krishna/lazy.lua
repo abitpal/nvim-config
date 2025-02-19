@@ -126,24 +126,12 @@ require("lazy").setup({
             "github/copilot.vim",
         },
         {
-            "CopilotC-Nvim/CopilotChat.nvim",
-            branch = "canary",
+            "olimorris/codecompanion.nvim",
+            config = true,
             dependencies = {
-                { "github/copilot.vim" }, -- or github/copilot.vim
-                { "nvim-lua/plenary.nvim" }, -- for curl, log wrapper
+                "nvim-lua/plenary.nvim",
+                "nvim-treesitter/nvim-treesitter",
             },
-            opts = {
-                debug = false, -- Enable debugging
-                -- See Configuration section for rest
-                window = {
-                    layout = "float",
-                    relative = "cursor",
-                    width = 1,
-                    height = 0.4,
-                    row = 1,
-                },
-            },
-            lazy = true,
         },
         {
             "folke/todo-comments.nvim",
@@ -183,6 +171,7 @@ require("lazy").setup({
                 { "<c-\\>", "<cmd><C-U>TmuxNavigatePrevious<cr>" },
             },
             lazy = true,
+            enabled = false,
         },
 
         -- Utilities

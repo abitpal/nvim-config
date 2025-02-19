@@ -74,6 +74,9 @@ cmp.setup({
         { name = 'luasnip' }, -- Snippet completions
         { name = 'buffer' },  -- Buffer words
         { name = 'path' },    -- File paths
+        per_filetype = {
+            codecompanion = { "codecompanion" },
+        }
     },
     window = {
         completion = {
@@ -174,11 +177,11 @@ lspconfig.pylsp.setup({
         pylsp = {
             plugins = {
                 ruff = {  -- Enable ruff for linting
-                    enabled = true,
+                    enabled = false,
                     extendSelect = {'E', 'F'},  -- Optional: specify which checks to enable in ruff
                 },
                 mypy = {  -- Enable mypy for type checking
-                    enabled = true,
+                    enabled = false,
                     live_mode = true,  -- Enable live mode to run mypy on the fly
                 },
                 pycodestyle = {
@@ -194,13 +197,13 @@ lspconfig.pylsp.setup({
                     enabled = false,  -- Disable pyflakes as ruff replaces it
                 },
                 mccabe = {
-                    enabled = false,  -- Disable mccabe (complexity checker)
+                    enabled = true,  -- Disable mccabe (complexity checker)
                 },
                 yapf = {
                     enabled = false,  -- Disable yapf, as black is already set up
                 },
                 autopep8 = {
-                    enabled = false,  -- Disable autopep8
+                    enabled = true,  -- Disable autopep8
                 },
                 pydocstyle = {
                     enabled = false,  -- Disable pydocstyle, unnecessary with ruff
