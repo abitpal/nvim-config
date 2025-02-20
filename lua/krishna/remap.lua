@@ -121,3 +121,8 @@ vim.api.nvim_set_keymap('v', '<leader>ct', "<cmd>CodeCompanionChat Toggle<CR>", 
 
 -- TSHT
 nnoremap("<C-U>", "<CMD>lua require('tsht').nodes()<CR>")
+
+
+-- Lspsaga
+vim.cmd [[ cnoreabbrev fterm Lspsaga term_toggle]]
+
