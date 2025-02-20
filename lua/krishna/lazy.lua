@@ -173,6 +173,7 @@ require("lazy").setup({
             lazy = true,
             enabled = false,
         },
+        "karb94/neoscroll.nvim",
 
         -- Utilities
         { "mbbill/undotree", lazy = false },
@@ -198,7 +199,7 @@ require("lazy").setup({
             lazy = true,
         },
 
-
+        "nosduco/remote-sshfs.nvim",
 
 
 

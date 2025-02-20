@@ -1,4 +1,0 @@
--- function cc_help()
---     local actions = require("CopilotChat.actions")
---     require("CopilotChat.integrations.telescope").pick(actions.help_actions())
--- end

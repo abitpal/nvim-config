@@ -157,18 +157,18 @@ require('mason-lspconfig').setup({
 -- ==========================
 
 -- Python: pyright settings
-lspconfig.pyright.setup({
-    handlers = handlers,
-    settings = {
-        python = {
-            analysis = {
-                autoSearchPaths = true,
-                diagnosticMode = "openFilesOnly",
-                useLibraryCodeForTypes = true
-            }
-        }
-    }
-})
+-- lspconfig.pyright.setup({
+--     handlers = handlers,
+--     settings = {
+--         python = {
+--             analysis = {
+--                 autoSearchPaths = true,
+--                 diagnosticMode = "openFilesOnly",
+--                 useLibraryCodeForTypes = true
+--             }
+--         }
+--     }
+-- })
 
 -- Python: pylsp settings
 lspconfig.pylsp.setup({
