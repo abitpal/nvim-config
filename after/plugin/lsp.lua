@@ -115,21 +115,27 @@ lsp_zero.on_attach(function(client, bufnr)
     end, opts)
 
     -- Telescope LSP mappings
-    vim.keymap.set('n', 'gr', '<cmd>Telescope lsp_references<cr>', opts)
-    vim.keymap.set('n', 'gd', '<cmd>Telescope lsp_definitions<cr>', opts)
+    vim.keymap.set('n', 'gr', '<cmd>Lspsaga finder<cr>', opts)
+    vim.keymap.set('n', 'gd', '<cmd>Lspsaga goto_definition<cr>', opts)
     vim.keymap.set('n', 'gD', '<cmd>Telescope lsp_implementations<cr>', opts)
-    vim.keymap.set('n', 'gi', '<cmd>Telescope lsp_incoming_calls<cr>', opts)
-    vim.keymap.set('n', 'go', '<cmd>Telescope lsp_outgoing_calls<cr>', opts)
+    vim.keymap.set('n', 'gi', '<cmd>Lspsaga incoming_calls<cr>', opts)
+    vim.keymap.set('n', 'go', '<cmd>Lspsaga outgoing_calls<cr>', opts)
 
     -- Hover and actions
-    vim.keymap.set('n', 'K', vim.lsp.buf.hover, opts)
-    vim.keymap.set('n', '<leader>r', vim.lsp.buf.rename, opts)
-    vim.keymap.set('n', '<leader>ca', vim.lsp.buf.code_action, opts)
+    vim.keymap.set('n', 'K', '<cmd>Lspsaga hover_doc<cr>', opts)
+    vim.keymap.set('n', '<leader>r', '<cmd>Lspsaga rename<cr>', opts)
+    vim.keymap.set('n', '<leader>ca', '<cmd>Lspsaga code_action<cr>', opts)
 
     -- Document and workspace symbols
     vim.keymap.set('n', '<leader>ds', '<cmd>Telescope lsp_document_symbols<cr>', opts)
     vim.keymap.set('n', '<leader>ws', '<cmd>Telescope lsp_workspace_symbols<cr>', opts)
+
+    vim.keymap.set("n", "<leader>pd", "<cmd>Lspsaga peek_definition<CR>", { silent = true })
+    vim.keymap.set("n", "<leader>cd", "<cmd>Lspsaga show_line_diagnostics<CR>", { silent = true })
+
 end)
+
+
 
 -- Set LSP diagnostic sign icons
 lsp_zero.set_sign_icons({
