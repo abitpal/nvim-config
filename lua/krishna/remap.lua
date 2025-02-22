@@ -5,6 +5,9 @@ local m = require("mapx").setup({
 
 vim.g.mapleader = " "
 
+-- remap jj to escape
+vim.api.nvim_set_keymap('i', 'jj', '<Esc>', { noremap = true, silent = true })
+
 -- NvimTree
 nnoremap("<leader>pv", ":NvimTreeFocus<CR>")
 nnoremap("<leader>pc", ":NvimTreeClose<CR>")
