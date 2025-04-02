@@ -31,6 +31,11 @@ require("lazy").setup({
             "folke/noice.nvim",
             event = "VeryLazy",
             opts = {
+                lsp = {
+                    signature = {
+                        enabled = false
+                    }
+                },
                 presets = {
                     lsp_doc_border = true,
                 },
@@ -95,17 +100,47 @@ require("lazy").setup({
         },
         "nvim-treesitter/nvim-treesitter-context",
         {
-            "VonHeikemen/lsp-zero.nvim",
-            dependencies = {
-                { "williamboman/mason.nvim" },
-                { "williamboman/mason-lspconfig.nvim" },
-                "neovim/nvim-lspconfig",
-                "hrsh7th/nvim-cmp",
-                "hrsh7th/cmp-nvim-lsp",
-                "L3MON4D3/LuaSnip",
-                "rafamadriz/friendly-snippets",
-                "saadparwaiz1/cmp_luasnip",
+            "L3MON4D3/LuaSnip",
+            dependencies = { "rafamadriz/friendly-snippets" },
+        },
+        "williamboman/mason.nvim",
+        "williamboman/mason-lspconfig.nvim",
+        {
+            'saghen/blink.cmp',
+            -- optional: provides snippets for the snippet source
+            dependencies = { 'rafamadriz/friendly-snippets' },
+
+            -- use a release tag to download pre-built binaries
+            version = '1.*',
+            -- AND/OR build from source, requires nightly: https://rust-lang.github.io/rustup/concepts/channels.html#working-with-nightly-rust
+            -- build = 'cargo build --release',
+            -- If you use nix, you can build from source using latest nightly rust with:
+            -- build = 'nix run .#build-plugin',
+
+            ---@module 'blink.cmp'
+            ---@type blink.cmp.Config
+            opts_extend = { "sources.default" }
+        },
+        {
+            'neovim/nvim-lspconfig',
+            dependencies = { 'saghen/blink.cmp' },
+
+            -- example using `opts` for defining servers
+            opts = {
+                servers = {
+                    lua_ls = {}
+                }
             },
+            config = function(_, opts)
+                local lspconfig = require('lspconfig')
+                for server, config in pairs(opts.servers) do
+                    -- passing config.capabilities to blink.cmp merges with the capabilities in your
+                    -- `opts[server].capabilities, if you've defined it
+                    config.capabilities = require('blink.cmp').get_lsp_capabilities(config.capabilities)
+                    lspconfig[server].setup(config)
+                end
+            end
+
         },
         'stevearc/conform.nvim',
         {
@@ -174,6 +209,23 @@ require("lazy").setup({
             enabled = false,
         },
         "karb94/neoscroll.nvim",
+        {
+            "smoka7/multicursors.nvim",
+            event = "VeryLazy",
+            dependencies = {
+                'nvimtools/hydra.nvim',
+            },
+            opts = {},
+            cmd = { 'MCstart', 'MCvisual', 'MCclear', 'MCpattern', 'MCvisualPattern', 'MCunderCursor' },
+            keys = {
+                {
+                    mode = { 'v', 'n' },
+                    '<Leader>m',
+                    '<cmd>MCstart<cr>',
+                    desc = 'Create a selection for selected text or word under the cursor',
+                },
+            },
+        },
 
         -- Utilities
         { "mbbill/undotree", lazy = false },
@@ -199,7 +251,7 @@ require("lazy").setup({
             lazy = true,
         },
         "nosduco/remote-sshfs.nvim",
-        'nvimdev/lspsaga.nvim',
+        -- 'nvimdev/lspsaga.nvim',
 
 
 
