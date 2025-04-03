@@ -23,12 +23,12 @@ require('blink.cmp').setup({
         preset = 'default',
         ['<C-space>'] = { 'show', 'show_documentation', 'hide_documentation' },
         ['<C-e>'] = { 'hide' },
-        ['<CR>'] = { 'select_and_accept' },
+        ['<CR>'] = { 'select_and_accept', 'fallback' },
 
         ['<M-k>'] = { 'select_prev', 'fallback' },
         ['<M-j>'] = { 'select_next', 'fallback' },
-        ['<Up>'] = { 'select_prev', 'fallback_to_mappings' },
-        ['<Down>'] = { 'select_next', 'fallback_to_mappings' },
+        ['<Up>'] = { 'select_prev', 'fallback' },
+        ['<Down>'] = { 'select_next', 'fallback' },
 
         ['<C-j>'] = { 'scroll_documentation_up', 'fallback' },
         ['<C-k>'] = { 'scroll_documentation_down', 'fallback' },
