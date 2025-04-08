@@ -119,3 +119,22 @@ require('blink.cmp').setup({
     }
 
 })
+
+-- When entering NvimTree
+vim.api.nvim_create_autocmd("BufEnter", {
+  pattern = "NvimTree_*",
+  callback = function()
+    vim.g.nvimtree_active = true
+    print("Entered NvimTree")
+  end,
+})
+
+-- When leaving NvimTree
+vim.api.nvim_create_autocmd("BufLeave", {
+  pattern = "NvimTree_*",
+  callback = function()
+    vim.g.nvimtree_active = false
+    print("Left NvimTree")
+  end,
+})
+
