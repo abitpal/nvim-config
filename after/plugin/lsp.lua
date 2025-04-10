@@ -19,6 +19,13 @@ require('blink.cmp').setup({
     -- C-k: Toggle signature help (if signature.enabled = true)
     --
     -- See :h blink-cmp-config-keymap for defining your own keymap
+    enabled = function()
+        -- Disable blink-cmp in NvimTree
+        if vim.g.nvimtree_active then
+            return false
+        end
+        return true
+    end,
     keymap = { 
         preset = 'default',
         ['<C-space>'] = { 'show', 'show_documentation', 'hide_documentation' },
@@ -125,7 +132,7 @@ vim.api.nvim_create_autocmd("BufEnter", {
   pattern = "NvimTree_*",
   callback = function()
     vim.g.nvimtree_active = true
-    print("Entered NvimTree")
+    -- print("Entered NvimTree")
   end,
 })
 
@@ -134,7 +141,6 @@ vim.api.nvim_create_autocmd("BufLeave", {
   pattern = "NvimTree_*",
   callback = function()
     vim.g.nvimtree_active = false
-    print("Left NvimTree")
+    -- print("Left NvimTree")
   end,
 })
-
