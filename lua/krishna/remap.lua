@@ -58,6 +58,20 @@ nnoremap("<leader>ff", "<CMD>Telescope find_files<CR>")
 nnoremap("<leader>gg", "<CMD>Telescope git_files<CR>")
 nnoremap("<leader>gs", "<CMD>Telescope git_status<CR>")
 
+-- Lspsaga
+nnoremap("<leader>gd", "<CMD>Lspsaga peek_definition<CR>")
+nnoremap("<leader>gD", "<CMD>Lspsaga goto_definition<CR>")
+nnoremap("<leader>gi", "<CMD>Lspsaga peek_implementation<CR>")
+nnoremap("<leader>gI", "<CMD>Lspsaga goto_implementation<CR>")
+nnoremap("<leader>gr", "<CMD>Lspsaga rename<CR>")
+nnoremap("<leader>gR", "<CMD>Lspsaga rename ++project<CR>")
+nnoremap("<leader>gt", "<CMD>Lspsaga peek_type_definition<CR>")
+nnoremap("<leader>gT", "<CMD>Lspsaga goto_type_definition<CR>")
+nnoremap("<leader>gh", "<CMD>Lspsaga hover_doc<CR>")
+nnoremap("<leader>gH", "<CMD>Lspsaga hover_doc ++keep<CR>")
+nnoremap("<leader>gf", "<CMD>Lspsaga lsp_finder<CR>")
+nnoremap("<leader>ca", "<CMD>Lspsaga code_action<CR>")
+
 -- ASToggle
 nnoremap("<leader>as", ":ASToggle<CR>")
 
