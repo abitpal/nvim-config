@@ -144,3 +144,19 @@ vim.api.nvim_create_autocmd("BufLeave", {
     -- print("Left NvimTree")
   end,
 })
+
+vim.o.updatetime = 300  -- how fast the hover shows (ms)
+
+vim.api.nvim_create_autocmd("CursorHold", {
+  callback = function()
+    vim.diagnostic.open_float(nil, {
+      focusable = false,
+      close_events = { "BufLeave", "CursorMoved", "InsertEnter", "FocusLost" },
+      border = 'rounded',
+      source = 'always',
+      prefix = '',
+      scope = 'cursor',
+    })
+  end
+})
+
