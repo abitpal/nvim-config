@@ -4,6 +4,28 @@ require("mason-lspconfig").setup({
         function(server_name)
             require('lspconfig')[server_name].setup({})
         end,
+
+        ["rust_analyzer"] = function()
+            local features = {}
+
+            -- Automatically enable the "cuda" feature if ENABLE_CUDA=1 is set in the environment
+            if vim.env.ENABLE_CUDA == "1" then
+                table.insert(features, "cuda")
+            end
+
+            require('lspconfig').rust_analyzer.setup({
+                settings = {
+                    ["rust-analyzer"] = {
+                        cargo = {
+                            features = features,
+                        },
+                        checkOnSave = {
+                            command = "clippy",
+                        },
+                    },
+                },
+            })
+        end,
     },
 })
 require('blink.cmp').setup({
@@ -129,34 +151,34 @@ require('blink.cmp').setup({
 
 -- When entering NvimTree
 vim.api.nvim_create_autocmd("BufEnter", {
-  pattern = "NvimTree_*",
-  callback = function()
-    vim.g.nvimtree_active = true
-    -- print("Entered NvimTree")
-  end,
+    pattern = "NvimTree_*",
+    callback = function()
+        vim.g.nvimtree_active = true
+        -- print("Entered NvimTree")
+    end,
 })
 
 -- When leaving NvimTree
 vim.api.nvim_create_autocmd("BufLeave", {
-  pattern = "NvimTree_*",
-  callback = function()
-    vim.g.nvimtree_active = false
-    -- print("Left NvimTree")
-  end,
+    pattern = "NvimTree_*",
+    callback = function()
+        vim.g.nvimtree_active = false
+        -- print("Left NvimTree")
+    end,
 })
 
 vim.o.updatetime = 300  -- how fast the hover shows (ms)
 
 vim.api.nvim_create_autocmd("CursorHold", {
-  callback = function()
-    vim.diagnostic.open_float(nil, {
-      focusable = false,
-      close_events = { "BufLeave", "CursorMoved", "InsertEnter", "FocusLost" },
-      border = 'rounded',
-      source = 'always',
-      prefix = '',
-      scope = 'cursor',
-    })
-  end
+    callback = function()
+        vim.diagnostic.open_float(nil, {
+            focusable = false,
+            close_events = { "BufLeave", "CursorMoved", "InsertEnter", "FocusLost" },
+            border = 'rounded',
+            source = 'always',
+            prefix = '',
+            scope = 'cursor',
+        })
+    end
 })
 
