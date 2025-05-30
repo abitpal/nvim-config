@@ -16,11 +16,38 @@ nnoremap("<leader>pr", ":NvimTreeRefresh<CR>")
 -- Trouble
 nnoremap("<leader>t", ":Trouble<CR>")
 
--- Sad
-nnoremap("<leader>s", ":Sad<CR>")
-
 -- Undotree
 nnoremap("<leader>u", ":UndotreeToggle<CR>")
+
+-- Spectre
+vim.keymap.set('n', '<leader>S', '<cmd>lua require("spectre").toggle()<CR>', {
+    desc = "Toggle Spectre"
+})
+vim.keymap.set('n', '<leader>Sw', '<cmd>lua require("spectre").open_visual({select_word=true})<CR>', {
+    desc = "Search current word"
+})
+vim.keymap.set('v', '<leader>Sw', '<esc><cmd>lua require("spectre").open_visual()<CR>', {
+    desc = "Search current word"
+})
+vim.keymap.set('n', '<leader>Sp', '<cmd>lua require("spectre").open_file_search({select_word=true})<CR>', {
+    desc = "Search on current file"
+})
+vim.keymap.set('n', '<leader>Stu', '<cmd>lua require("spectre").toggle_live_update()<CR>', {
+    desc = "Toggle live update"
+})
+-- Spectre replace
+vim.keymap.set('n', '<leader>Sr', '<cmd>lua require("spectre.actions").run_current_replace()<CR>', {
+    desc = "Replace current word"
+})
+vim.keymap.set('n', '<leader>SR', '<cmd>lua require("spectre.actions").run_replace()<CR>', {
+    desc = "Replace all occurrences of current word"
+})
+
+
+-- SSR
+nnoremap("<leader>RR", function() require("ssr").open() end)
+
+
 
 -- Neogit
 nnoremap("<leader>G", ":Neogit<CR>")
@@ -59,17 +86,18 @@ nnoremap("<leader>gg", "<CMD>Telescope git_files<CR>")
 nnoremap("<leader>gs", "<CMD>Telescope git_status<CR>")
 
 -- Lspsaga
-nnoremap("<leader>gd", "<CMD>Lspsaga peek_definition<CR>")
-nnoremap("<leader>gD", "<CMD>Lspsaga goto_definition<CR>")
-nnoremap("<leader>gi", "<CMD>Lspsaga peek_implementation<CR>")
-nnoremap("<leader>gI", "<CMD>Lspsaga goto_implementation<CR>")
-nnoremap("<leader>gr", "<CMD>Lspsaga rename<CR>")
-nnoremap("<leader>gR", "<CMD>Lspsaga rename ++project<CR>")
-nnoremap("<leader>gt", "<CMD>Lspsaga peek_type_definition<CR>")
-nnoremap("<leader>gT", "<CMD>Lspsaga goto_type_definition<CR>")
-nnoremap("<leader>gh", "<CMD>Lspsaga hover_doc<CR>")
-nnoremap("<leader>gH", "<CMD>Lspsaga hover_doc ++keep<CR>")
-nnoremap("<leader>gf", "<CMD>Lspsaga lsp_finder<CR>")
+vim.cmd [[ cnoreabbrev fterm Lspsaga term_toggle]]
+nnoremap("K", "<CMD>Lspsaga hover_doc<CR>")
+nnoremap("KK", "<CMD>Lspsaga hover_doc ++keep<CR>")
+nnoremap("gd", "<CMD>Lspsaga peek_definition<CR>")
+nnoremap("gD", "<CMD>Lspsaga goto_definition<CR>")
+nnoremap("gi", "<CMD>Lspsaga peek_implementation<CR>")
+nnoremap("gI", "<CMD>Lspsaga goto_implementation<CR>")
+nnoremap("gr", "<CMD>Lspsaga rename<CR>")
+nnoremap("gR", "<CMD>Lspsaga rename ++project<CR>")
+nnoremap("gt", "<CMD>Lspsaga peek_type_definition<CR>")
+nnoremap("gT", "<CMD>Lspsaga goto_type_definition<CR>")
+nnoremap("gf", "<CMD>Lspsaga lsp_finder<CR>")
 nnoremap("<leader>ca", "<CMD>Lspsaga code_action<CR>")
 
 -- ASToggle
@@ -86,12 +114,6 @@ nnoremap("<right>", "<nop>")
 -- Tagbar
 nnoremap("<leader>c", ":TagbarToggle<CR>")
 
--- Harpoon
-local mark = require("harpoon.mark")
-local ui = require("harpoon.ui")
-nnoremap("<leader>ha", mark.add_file)
-nnoremap("<leader>hs", ui.toggle_quick_menu)
-nnoremap("<leader>hh", ":Telescope harpoon marks<CR>")
 
 -- Tabs and buffers
 nnoremap("<leader>bc", ":tabnew<CR>:NvimTreeFocus<CR>")
@@ -122,8 +144,6 @@ nnoremap("<leader>l", ":TodoTelescope<CR>")
 -- Treesitter toggle
 nnoremap("<S-Tab>", "<cmd>lua require('treesj').toggle()<cr>", { silent = true })
 
--- SSR
-nnoremap("<leader>Sr", function() require("ssr").open() end)
 
 -- Copilot and CopilotChat
 -- Normal mode mappings
@@ -139,7 +159,6 @@ vim.api.nvim_set_keymap('v', '<leader>ct', "<cmd>CodeCompanionChat Toggle<CR>", 
 -- TSHT
 nnoremap("<C-U>", "<CMD>lua require('tsht').nodes()<CR>")
 
-
--- Lspsaga
-vim.cmd [[ cnoreabbrev fterm Lspsaga term_toggle]]
-
+-- UFO
+vim.keymap.set('n', 'uO', require('ufo').openAllFolds)
+vim.keymap.set('n', 'uF', require('ufo').closeAllFolds)

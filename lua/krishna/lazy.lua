@@ -71,7 +71,7 @@ require("lazy").setup({
         },
         {
             "preservim/tagbar",
-            lazy = true,
+            lazy = false,
         },
         "nvim-tree/nvim-tree.lua",
         {
@@ -83,6 +83,12 @@ require("lazy").setup({
             lazy = true,
         },
         "norcalli/nvim-colorizer.lua",
+        {
+            'kevinhwang91/nvim-ufo',
+            dependencies = {
+                'kevinhwang91/promise-async',
+            },
+        },
 
         -- Shortcut plugins
         "b0o/mapx.nvim",
@@ -177,9 +183,15 @@ require("lazy").setup({
             "DragonflyRobotics/ros2-nvim",
             lazy = true,
         },
+        {
+            'nvim-pack/nvim-spectre',
+            dependencies = {
+                'nvim-lua/plenary.nvim',
+                'nvim-tree/nvim-web-devicons',
+            },
+        },
 
         -- Navigation
-        "ThePrimeagen/harpoon",
         {
             "folke/which-key.nvim",
             config = function()
@@ -237,14 +249,6 @@ require("lazy").setup({
                     enabled = true,
                 })
             end,
-        },
-        {
-            "ray-x/sad.nvim",
-            dependencies = { "ray-x/guihua.lua", build = "cd lua/fzy && make" },
-            config = function()
-                require("sad").setup({})
-            end,
-            lazy = true,
         },
         {
             "numToStr/Comment.nvim",

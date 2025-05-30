@@ -1,4 +1,3 @@
-require("telescope").load_extension('harpoon')
 require("telescope").load_extension("yank_history")
 require('telescope').setup{
   defaults = {
