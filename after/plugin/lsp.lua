@@ -28,6 +28,8 @@ require("mason-lspconfig").setup({
         end,
     },
 })
+
+
 require('blink.cmp').setup({
     -- 'default' (recommended) for mappings similar to built-in completions (C-y to accept)
     -- 'super-tab' for mappings similar to vscode (tab to accept)
@@ -40,13 +42,15 @@ require('blink.cmp').setup({
     -- C-e: Hide menu
     -- C-k: Toggle signature help (if signature.enabled = true)
     --
-    -- See :h blink-cmp-config-keymap for defining your own keymap
+    -- See :h blink-cmp-config-keymap for defining your own keymap 
     enabled = function()
         -- Disable blink-cmp in NvimTree
-        if vim.g.nvimtree_active then
-            return false
+        if vim.g.blink_active then
+            print("Blink active")
+            return true 
         end
-        return true
+        print("Blink inactive")
+        return false 
     end,
     keymap = { 
         preset = 'default',
@@ -134,9 +138,9 @@ require('blink.cmp').setup({
 
     -- (Default) Rust fuzzy matcher for typo resistance and significantly better performance
     -- You may use a lua implementation instead by using `implementation = "lua"` or fallback to the lua implementation,
-    -- when the Rust fuzzy matcher is not available, by using `implementation = "prefer_rust"`
+    -- when the Rust fuzzy matcher is not available, by using `implementation = "prefer_rust"`jre 
     --
-    -- See the fuzzy documentation for more information
+    -- See the fuzzy documentation for more information require  req require require
     fuzzy = { 
         implementation = "prefer_rust_with_warning",
         sorts = {
@@ -149,21 +153,27 @@ require('blink.cmp').setup({
 
 })
 
--- When entering NvimTree
-vim.api.nvim_create_autocmd("BufEnter", {
-    pattern = "NvimTree_*",
-    callback = function()
-        vim.g.nvimtree_active = true
-        -- print("Entered NvimTree")
-    end,
-})
 
--- When leaving NvimTree
-vim.api.nvim_create_autocmd("BufLeave", {
-    pattern = "NvimTree_*",
+local function blink_active()
+        local syn_id = vim.fn.synID(vim.fn.line("."), vim.fn.col("."), 1)
+        local syn_name = vim.fn.synIDattr(syn_id, "name")
+        if syn_name:lower():find('comment') then
+            vim.g.blink_active = false 
+            return
+        end
+        -- Check if the current buffer is NvimTree 
+        local bufnr = vim.api.nvim_get_current_buf()
+        local bufname = vim.api.nvim_buf_get_name(bufnr)
+        if bufname:match("NvimTree_") then
+            vim.g.blink_active = false 
+            return
+        end
+        vim.g.blink_active = true
+end 
+
+vim.api.nvim_create_autocmd({"CursorMoved"}, {
     callback = function()
-        vim.g.nvimtree_active = false
-        -- print("Left NvimTree")
+        blink_active()
     end,
 })
 
