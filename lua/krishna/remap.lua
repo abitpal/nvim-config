@@ -160,5 +160,4 @@ vim.api.nvim_set_keymap('v', '<leader>ct', "<cmd>CodeCompanionChat Toggle<CR>", 
 nnoremap("<C-U>", "<CMD>lua require('tsht').nodes()<CR>")
 
 -- UFO
-vim.keymap.set('n', 'uO', require('ufo').openAllFolds)
-vim.keymap.set('n', 'uF', require('ufo').closeAllFolds)
+vim.keymap.set('n', 'uF', toggle_fold)
