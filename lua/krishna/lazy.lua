@@ -16,15 +16,19 @@ require("lazy").setup({
         -- UI Plugins
         {
             "dracula/vim",
-            enabled = false,
+            enabled = true,
         },
         {
             "folke/tokyonight.nvim",
-            enabled = false,
+            enabled = true,
         },
         {
             "marko-cerovac/material.nvim",
-            enabled = false,
+            enabled = true,
+        },
+        {
+            "rebelot/kanagawa.nvim",
+            enabled = true,
         },
         "stevearc/dressing.nvim",
         {
