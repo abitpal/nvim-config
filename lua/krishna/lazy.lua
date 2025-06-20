@@ -87,12 +87,6 @@ require("lazy").setup({
             lazy = true,
         },
         "norcalli/nvim-colorizer.lua",
-        {
-            'kevinhwang91/nvim-ufo',
-            dependencies = {
-                'kevinhwang91/promise-async',
-            },
-        },
 
         -- Shortcut plugins
         "b0o/mapx.nvim",

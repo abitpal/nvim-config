@@ -1,0 +1,517 @@
+diff --git a/after/plugin/colors.lua b/after/plugin/colors.lua
+index 0cf7bd4..1aef49a 100644
+--- a/after/plugin/colors.lua
++++ b/after/plugin/colors.lua
+@@ -1,2 +1,116 @@
+-vim.opt.termguicolors = true
+-vim.cmd "colorscheme catppuccin-mocha"
++vim.opt.termguicolors = false 
++
++require("tokyonight").setup({
++    on_highlights = function(hl, c)
++        local prompt = "#2d3149"
++        hl.TelescopeNormal = {
++            bg = c.bg_dark,
++            fg = c.fg_dark,
++        }
++        hl.TelescopeBorder = {
++            bg = c.bg_dark,
++            fg = c.bg_dark,
++        }
++        hl.TelescopePromptNormal = {
++            bg = prompt,
++        }
++        hl.TelescopePromptBorder = {
++            bg = prompt,
++            fg = prompt,
++        }
++        hl.TelescopePromptTitle = {
++            bg = prompt,
++            fg = prompt,
++        }
++        hl.TelescopePreviewTitle = {
++            bg = c.bg_dark,
++            fg = c.bg_dark,
++        }
++        hl.TelescopeResultsTitle = {
++            bg = c.bg_dark,
++            fg = c.bg_dark,
++        }
++    end,
++})
++
++require('material').setup({
++    disable = {
++        background = true, -- Prevent the theme from setting the background (NeoVim then uses your terminal background)
++        term_colors = true, -- Prevent the theme from setting terminal colors
++    },
++})
++
++
++require('kanagawa').setup({
++    compile = false,             -- enable compiling the colorscheme
++    undercurl = true,            -- enable undercurls
++    commentStyle = { italic = true },
++    functionStyle = {},
++    keywordStyle = { italic = true},
++    statementStyle = { bold = true },
++    typeStyle = {},
++    transparent = false,         -- do not set background color
++    dimInactive = false,         -- dim inactive window `:h hl-NormalNC`
++    terminalColors = true,       -- define vim.g.terminal_color_{0,17}
++    colors = {                   -- add/modify theme and palette colors
++        palette = {},
++        theme = {
++            wave = {},
++            lotus = {},
++            dragon = {},
++            all = {
++                ui = {
++                    bg_gutter = "none", -- set the background color of the gutter
++                },
++            },
++        },
++    },
++    overrides = function(colors)
++        local theme = colors.theme
++        local makeDiagnosticColor = function(color)
++            local c = require("kanagawa.lib.color")
++            return { fg = color, bg = c(color):blend(theme.ui.bg, 0.95):to_hex() }
++        end
++        return {
++            NormalFloat = { bg = "none" },
++            FloatBorder = { bg = "none" },
++            FloatTitle = { bg = "none" },
++
++            -- Save an hlgroup with dark background and dimmed foreground
++            -- so that you can use it where your still want darker windows.
++            -- E.g.: autocmd TermOpen * setlocal winhighlight=Normal:NormalDark
++            NormalDark = { fg = theme.ui.fg_dim, bg = theme.ui.bg_m3 },
++
++            -- Popular plugins that open floats will link to NormalFloat by default;
++            -- set their background accordingly if you wish to keep them dark and borderless
++            LazyNormal = { bg = theme.ui.bg_m3, fg = theme.ui.fg_dim },
++            MasonNormal = { bg = theme.ui.bg_m3, fg = theme.ui.fg_dim },
++            TelescopeTitle = { fg = theme.ui.special, bold = true },
++            TelescopePromptNormal = { bg = theme.ui.bg_p1 },
++            TelescopePromptBorder = { fg = theme.ui.bg_p1, bg = theme.ui.bg_p1 },
++            TelescopeResultsNormal = { fg = theme.ui.fg_dim, bg = theme.ui.bg_m1 },
++            TelescopeResultsBorder = { fg = theme.ui.bg_m1, bg = theme.ui.bg_m1 },
++            TelescopePreviewNormal = { bg = theme.ui.bg_dim },
++            TelescopePreviewBorder = { bg = theme.ui.bg_dim, fg = theme.ui.bg_dim },
++            Pmenu = { fg = theme.ui.shade0, bg = theme.ui.bg_p1 },  -- add `blend = vim.o.pumblend` to enable transparency
++            PmenuSel = { fg = "NONE", bg = theme.ui.bg_p2 },
++            PmenuSbar = { bg = theme.ui.bg_m1 },
++            PmenuThumb = { bg = theme.ui.bg_p2 },
++            DiagnosticVirtualTextHint  = makeDiagnosticColor(theme.diag.hint),
++            DiagnosticVirtualTextInfo  = makeDiagnosticColor(theme.diag.info),
++            DiagnosticVirtualTextWarn  = makeDiagnosticColor(theme.diag.warning),
++            DiagnosticVirtualTextError = makeDiagnosticColor(theme.diag.error),
++        }
++    end,
++    theme = "wave",              -- Load "wave" theme
++    background = {               -- map the value of 'background' option to a theme
++        dark = "dragon",           -- try "dragon" !
++        light = "lotus"
++    },
++})
++
++
++-- setup must be called before loading
++vim.cmd("colorscheme kanagawa")
++
++-- vim.cmd "colorscheme catppuccin-mocha"
+diff --git a/after/plugin/harpoon.lua b/after/plugin/harpoon.lua
+deleted file mode 100644
+index 4e452d5..0000000
+--- a/after/plugin/harpoon.lua
++++ /dev/null
+@@ -1,28 +0,0 @@
+-require("harpoon").setup(
+-    {
+-    -- sets the marks upon calling `toggle` on the ui, instead of require `:w`.
+-    save_on_toggle = false,
+-
+-    -- saves the harpoon file upon every change. disabling is unrecommended.
+-    save_on_change = true,
+-
+-    -- sets harpoon to run the command immediately as it's passed to the terminal when calling `sendCommand`.
+-    enter_on_sendcmd = false,
+-
+-    -- closes any tmux windows harpoon that harpoon creates when you close Neovim.
+-    tmux_autoclose_windows = false,
+-
+-    -- filetypes that you want to prevent from adding to the harpoon list menu.
+-    excluded_filetypes = { "harpoon" },
+-
+-    -- set marks specific to each git branch inside git repository
+-    mark_branch = false,
+-
+-    -- enable tabline with harpoon marks
+-    tabline = false,
+-    tabline_prefix = "   ",
+-    tabline_suffix = "   ",
+-}
+-)
+-
+-
+diff --git a/after/plugin/lsp.lua b/after/plugin/lsp.lua
+index 8ecb214..2ad3d8a 100644
+--- a/after/plugin/lsp.lua
++++ b/after/plugin/lsp.lua
+@@ -28,6 +28,8 @@ require("mason-lspconfig").setup({
+         end,
+     },
+ })
++
++
+ require('blink.cmp').setup({
+     -- 'default' (recommended) for mappings similar to built-in completions (C-y to accept)
+     -- 'super-tab' for mappings similar to vscode (tab to accept)
+@@ -40,13 +42,15 @@ require('blink.cmp').setup({
+     -- C-e: Hide menu
+     -- C-k: Toggle signature help (if signature.enabled = true)
+     --
+-    -- See :h blink-cmp-config-keymap for defining your own keymap
++    -- See :h blink-cmp-config-keymap for defining your own keymap 
+     enabled = function()
+         -- Disable blink-cmp in NvimTree
+-        if vim.g.nvimtree_active then
+-            return false
++        if vim.g.blink_active then
++            print("Blink active")
++            return true 
+         end
+-        return true
++        print("Blink inactive")
++        return false 
+     end,
+     keymap = { 
+         preset = 'default',
+@@ -134,9 +138,9 @@ require('blink.cmp').setup({
+ 
+     -- (Default) Rust fuzzy matcher for typo resistance and significantly better performance
+     -- You may use a lua implementation instead by using `implementation = "lua"` or fallback to the lua implementation,
+-    -- when the Rust fuzzy matcher is not available, by using `implementation = "prefer_rust"`
++    -- when the Rust fuzzy matcher is not available, by using `implementation = "prefer_rust"`jre 
+     --
+-    -- See the fuzzy documentation for more information
++    -- See the fuzzy documentation for more information require  req require require
+     fuzzy = { 
+         implementation = "prefer_rust_with_warning",
+         sorts = {
+@@ -149,21 +153,27 @@ require('blink.cmp').setup({
+ 
+ })
+ 
+--- When entering NvimTree
+-vim.api.nvim_create_autocmd("BufEnter", {
+-    pattern = "NvimTree_*",
+-    callback = function()
+-        vim.g.nvimtree_active = true
+-        -- print("Entered NvimTree")
+-    end,
+-})
+ 
+--- When leaving NvimTree
+-vim.api.nvim_create_autocmd("BufLeave", {
+-    pattern = "NvimTree_*",
++local function blink_active()
++        local syn_id = vim.fn.synID(vim.fn.line("."), vim.fn.col("."), 1)
++        local syn_name = vim.fn.synIDattr(syn_id, "name")
++        if syn_name:lower():find('comment') then
++            vim.g.blink_active = false 
++            return
++        end
++        -- Check if the current buffer is NvimTree 
++        local bufnr = vim.api.nvim_get_current_buf()
++        local bufname = vim.api.nvim_buf_get_name(bufnr)
++        if bufname:match("NvimTree_") then
++            vim.g.blink_active = false 
++            return
++        end
++        vim.g.blink_active = true
++end 
++
++vim.api.nvim_create_autocmd({"CursorMoved"}, {
+     callback = function()
+-        vim.g.nvimtree_active = false
+-        -- print("Left NvimTree")
++        blink_active()
+     end,
+ })
+ 
+diff --git a/after/plugin/spectre.lua b/after/plugin/spectre.lua
+new file mode 100644
+index 0000000..1bd4029
+--- /dev/null
++++ b/after/plugin/spectre.lua
+@@ -0,0 +1 @@
++require('spectre').setup()
+diff --git a/after/plugin/telescope.lua b/after/plugin/telescope.lua
+index 7f22924..292fc61 100644
+--- a/after/plugin/telescope.lua
++++ b/after/plugin/telescope.lua
+@@ -1,4 +1,3 @@
+-require("telescope").load_extension('harpoon')
+ require("telescope").load_extension("yank_history")
+ require('telescope').setup{
+   defaults = {
+diff --git a/after/plugin/ufo.lua b/after/plugin/ufo.lua
+new file mode 100644
+index 0000000..1e15ad2
+--- /dev/null
++++ b/after/plugin/ufo.lua
+@@ -0,0 +1,35 @@
++vim.o.foldcolumn = '1' -- '0' is not bad
++vim.o.foldlevel = 99 -- Using ufo provider need a large value, feel free to decrease the value
++vim.o.foldlevelstart = 99
++vim.o.foldenable = true
++
++vim.g.ufo_is_folded = false
++
++
++
++-- Option 2: nvim lsp as LSP client
++-- Tell the server the capability of foldingRange,
++-- Neovim hasn't added foldingRange to default capabilities, users must add it manually
++local capabilities = vim.lsp.protocol.make_client_capabilities()
++capabilities.textDocument.foldingRange = {
++    dynamicRegistration = false,
++    lineFoldingOnly = true
++}
++-- local language_servers = vim.lsp.get_clients() -- or list servers manually like {'gopls', 'clangd'}
++-- for _, ls in ipairs(language_servers) do
++--     require('lspconfig')[ls].setup({
++--         capabilities = capabilities
++--         -- you can add other fields for setting up lsp server in this table
++--     })
++-- end
++require('ufo').setup()
++
++function _G.toggle_fold()
++    if vim.g.ufo_is_folded then
++        require('ufo').openAllFolds()
++        vim.g.ufo_is_folded = false
++    else
++        require('ufo').closeAllFolds()
++        vim.g.ufo_is_folded = true
++    end
++end
+diff --git a/lua/krishna/init.lua b/lua/krishna/init.lua
+index 9e4618a..e6c483c 100644
+--- a/lua/krishna/init.lua
++++ b/lua/krishna/init.lua
+@@ -3,5 +3,4 @@ require("krishna.lazy")
+ require("krishna.remap")
+ require("krishna.set")
+ require("krishna.swift")
+-require("krishna.sad")
+ require("krishna.functions")
+diff --git a/lua/krishna/lazy.lua b/lua/krishna/lazy.lua
+index b221c1f..2d5aacf 100644
+--- a/lua/krishna/lazy.lua
++++ b/lua/krishna/lazy.lua
+@@ -16,15 +16,19 @@ require("lazy").setup({
+         -- UI Plugins
+         {
+             "dracula/vim",
+-            enabled = false,
++            enabled = true,
+         },
+         {
+             "folke/tokyonight.nvim",
+-            enabled = false,
++            enabled = true,
+         },
+         {
+             "marko-cerovac/material.nvim",
+-            enabled = false,
++            enabled = true,
++        },
++        {
++            "rebelot/kanagawa.nvim",
++            enabled = true,
+         },
+         "stevearc/dressing.nvim",
+         {
+@@ -71,7 +75,7 @@ require("lazy").setup({
+         },
+         {
+             "preservim/tagbar",
+-            lazy = true,
++            lazy = false,
+         },
+         "nvim-tree/nvim-tree.lua",
+         {
+@@ -83,6 +87,12 @@ require("lazy").setup({
+             lazy = true,
+         },
+         "norcalli/nvim-colorizer.lua",
++        {
++            'kevinhwang91/nvim-ufo',
++            dependencies = {
++                'kevinhwang91/promise-async',
++            },
++        },
+ 
+         -- Shortcut plugins
+         "b0o/mapx.nvim",
+@@ -177,9 +187,15 @@ require("lazy").setup({
+             "DragonflyRobotics/ros2-nvim",
+             lazy = true,
+         },
++        {
++            'nvim-pack/nvim-spectre',
++            dependencies = {
++                'nvim-lua/plenary.nvim',
++                'nvim-tree/nvim-web-devicons',
++            },
++        },
+ 
+         -- Navigation
+-        "ThePrimeagen/harpoon",
+         {
+             "folke/which-key.nvim",
+             config = function()
+@@ -238,14 +254,6 @@ require("lazy").setup({
+                 })
+             end,
+         },
+-        {
+-            "ray-x/sad.nvim",
+-            dependencies = { "ray-x/guihua.lua", build = "cd lua/fzy && make" },
+-            config = function()
+-                require("sad").setup({})
+-            end,
+-            lazy = true,
+-        },
+         {
+             "numToStr/Comment.nvim",
+             lazy = true,
+diff --git a/lua/krishna/remap.lua b/lua/krishna/remap.lua
+index 1c068bc..213d93e 100644
+--- a/lua/krishna/remap.lua
++++ b/lua/krishna/remap.lua
+@@ -16,12 +16,39 @@ nnoremap("<leader>pr", ":NvimTreeRefresh<CR>")
+ -- Trouble
+ nnoremap("<leader>t", ":Trouble<CR>")
+ 
+--- Sad
+-nnoremap("<leader>s", ":Sad<CR>")
+-
+ -- Undotree
+ nnoremap("<leader>u", ":UndotreeToggle<CR>")
+ 
++-- Spectre
++vim.keymap.set('n', '<leader>S', '<cmd>lua require("spectre").toggle()<CR>', {
++    desc = "Toggle Spectre"
++})
++vim.keymap.set('n', '<leader>Sw', '<cmd>lua require("spectre").open_visual({select_word=true})<CR>', {
++    desc = "Search current word"
++})
++vim.keymap.set('v', '<leader>Sw', '<esc><cmd>lua require("spectre").open_visual()<CR>', {
++    desc = "Search current word"
++})
++vim.keymap.set('n', '<leader>Sp', '<cmd>lua require("spectre").open_file_search({select_word=true})<CR>', {
++    desc = "Search on current file"
++})
++vim.keymap.set('n', '<leader>Stu', '<cmd>lua require("spectre").toggle_live_update()<CR>', {
++    desc = "Toggle live update"
++})
++-- Spectre replace
++vim.keymap.set('n', '<leader>Sr', '<cmd>lua require("spectre.actions").run_current_replace()<CR>', {
++    desc = "Replace current word"
++})
++vim.keymap.set('n', '<leader>SR', '<cmd>lua require("spectre.actions").run_replace()<CR>', {
++    desc = "Replace all occurrences of current word"
++})
++
++
++-- SSR
++nnoremap("<leader>RR", function() require("ssr").open() end)
++
++
++
+ -- Neogit
+ nnoremap("<leader>G", ":Neogit<CR>")
+ 
+@@ -59,17 +86,18 @@ nnoremap("<leader>gg", "<CMD>Telescope git_files<CR>")
+ nnoremap("<leader>gs", "<CMD>Telescope git_status<CR>")
+ 
+ -- Lspsaga
+-nnoremap("<leader>gd", "<CMD>Lspsaga peek_definition<CR>")
+-nnoremap("<leader>gD", "<CMD>Lspsaga goto_definition<CR>")
+-nnoremap("<leader>gi", "<CMD>Lspsaga peek_implementation<CR>")
+-nnoremap("<leader>gI", "<CMD>Lspsaga goto_implementation<CR>")
+-nnoremap("<leader>gr", "<CMD>Lspsaga rename<CR>")
+-nnoremap("<leader>gR", "<CMD>Lspsaga rename ++project<CR>")
+-nnoremap("<leader>gt", "<CMD>Lspsaga peek_type_definition<CR>")
+-nnoremap("<leader>gT", "<CMD>Lspsaga goto_type_definition<CR>")
+-nnoremap("<leader>gh", "<CMD>Lspsaga hover_doc<CR>")
+-nnoremap("<leader>gH", "<CMD>Lspsaga hover_doc ++keep<CR>")
+-nnoremap("<leader>gf", "<CMD>Lspsaga lsp_finder<CR>")
++vim.cmd [[ cnoreabbrev fterm Lspsaga term_toggle]]
++nnoremap("K", "<CMD>Lspsaga hover_doc<CR>")
++nnoremap("KK", "<CMD>Lspsaga hover_doc ++keep<CR>")
++nnoremap("gd", "<CMD>Lspsaga peek_definition<CR>")
++nnoremap("gD", "<CMD>Lspsaga goto_definition<CR>")
++nnoremap("gi", "<CMD>Lspsaga peek_implementation<CR>")
++nnoremap("gI", "<CMD>Lspsaga goto_implementation<CR>")
++nnoremap("gr", "<CMD>Lspsaga rename<CR>")
++nnoremap("gR", "<CMD>Lspsaga rename ++project<CR>")
++nnoremap("gt", "<CMD>Lspsaga peek_type_definition<CR>")
++nnoremap("gT", "<CMD>Lspsaga goto_type_definition<CR>")
++nnoremap("gf", "<CMD>Lspsaga lsp_finder<CR>")
+ nnoremap("<leader>ca", "<CMD>Lspsaga code_action<CR>")
+ 
+ -- ASToggle
+@@ -86,12 +114,6 @@ nnoremap("<right>", "<nop>")
+ -- Tagbar
+ nnoremap("<leader>c", ":TagbarToggle<CR>")
+ 
+--- Harpoon
+-local mark = require("harpoon.mark")
+-local ui = require("harpoon.ui")
+-nnoremap("<leader>ha", mark.add_file)
+-nnoremap("<leader>hs", ui.toggle_quick_menu)
+-nnoremap("<leader>hh", ":Telescope harpoon marks<CR>")
+ 
+ -- Tabs and buffers
+ nnoremap("<leader>bc", ":tabnew<CR>:NvimTreeFocus<CR>")
+@@ -122,8 +144,6 @@ nnoremap("<leader>l", ":TodoTelescope<CR>")
+ -- Treesitter toggle
+ nnoremap("<S-Tab>", "<cmd>lua require('treesj').toggle()<cr>", { silent = true })
+ 
+--- SSR
+-nnoremap("<leader>Sr", function() require("ssr").open() end)
+ 
+ -- Copilot and CopilotChat
+ -- Normal mode mappings
+@@ -139,7 +159,5 @@ vim.api.nvim_set_keymap('v', '<leader>ct', "<cmd>CodeCompanionChat Toggle<CR>",
+ -- TSHT
+ nnoremap("<C-U>", "<CMD>lua require('tsht').nodes()<CR>")
+ 
+-
+--- Lspsaga
+-vim.cmd [[ cnoreabbrev fterm Lspsaga term_toggle]]
+-
++-- UFO
++vim.keymap.set('n', 'uF', toggle_fold)
+diff --git a/lua/krishna/sad.lua b/lua/krishna/sad.lua
+deleted file mode 100644
+index d5e9112..0000000
+--- a/lua/krishna/sad.lua
++++ /dev/null
+@@ -1,11 +0,0 @@
+-require'sad'.setup({
+-  debug = false, -- print debug info
+-  diff = 'delta', -- you can use `less`, `diff-so-fancy`
+-  ls_file = 'fd', -- also git ls-files
+-  exact = false, -- exact match
+-  vsplit = false, -- split sad window the screen vertically, when set to number
+-  -- it is a threadhold when window is larger than the threshold sad will split vertically,
+-  height_ratio = 0.6, -- height ratio of sad window when split horizontally
+-  width_ratio = 0.6, -- height ratio of sad window when split vertically
+-
+-})
