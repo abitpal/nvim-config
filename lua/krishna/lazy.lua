@@ -236,6 +236,18 @@ require("lazy").setup({
                 },
             },
         },
+        {
+            "tris203/precognition.nvim",
+            opts = {
+                startVisible = false, -- start with the preview window visible
+            },
+        },
+        {
+            "ggandor/leap.nvim",
+            dependencies = {
+                "tpope/vim-repeat", -- for repeating the last leap command
+            }, 
+        },
 
         -- Utilities
         { "mbbill/undotree", lazy = false },
