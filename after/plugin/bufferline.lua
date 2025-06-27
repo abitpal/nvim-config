@@ -21,4 +21,3 @@ require("bufferline").setup{
         enforce_regular_tabs = true
     },
 }
-

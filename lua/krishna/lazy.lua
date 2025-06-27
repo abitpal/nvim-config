@@ -15,59 +15,10 @@ require("lazy").setup({
     spec = {
         -- UI Plugins
         {
-            "dracula/vim",
-            enabled = true,
-        },
-        {
             "folke/tokyonight.nvim",
             enabled = true,
         },
-        {
-            "marko-cerovac/material.nvim",
-            enabled = true,
-        },
-        {
-            "rebelot/kanagawa.nvim",
-            enabled = true,
-        },
         "stevearc/dressing.nvim",
-        {
-            "folke/noice.nvim",
-            event = "VeryLazy",
-            opts = {
-                lsp = {
-                    signature = {
-                        enabled = false
-                    }
-                },
-                presets = {
-                    lsp_doc_border = true,
-                },
-                views = {
-                    cmdline_popup = {
-                        border = {
-                            style = "rounded", -- Change this to your preferred border style
-                            highlight = "NoiceBorder", -- Add this line to set the highlight group
-                        },
-                    },
-                    popupmenu = {
-                        border = {
-                            style = "rounded", -- Change this to your preferred border style
-                            highlight = "NoiceBorder", -- Add this line to set the highlight group
-                        },
-                    },
-                },
-            },
-
-            dependencies = {
-                --        if you lazy-load any plugin below, make sure to add proper `module="..."` entries
-                "MunifTanjim/nui.nvim",
-                --        OPTIONAL:
-                --          `nvim-notify` is only needed, if you want to use the notification view.
-                --          If not available, we use `mini` as the fallback
-                -- "rcarriga/nvim-notify",
-            },
-        },
         "nvim-tree/nvim-web-devicons",
         {
             "nvim-lualine/lualine.nvim",
@@ -370,15 +321,6 @@ require("lazy").setup({
             },
         },
         "mhartington/formatter.nvim",
-        {
-            "catppuccin/nvim",
-            name = "catppuccin",
-            priority = 1000,
-            opts = {
-                termguicolors = true,
-                transparent_background = true,
-            },
-        },
         {
             'nvimdev/dashboard-nvim',
             event = 'VimEnter',
