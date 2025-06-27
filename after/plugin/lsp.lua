@@ -29,7 +29,6 @@ require("mason-lspconfig").setup({
     },
 })
 
-
 require('blink.cmp').setup({
     -- 'default' (recommended) for mappings similar to built-in completions (C-y to accept)
     -- 'super-tab' for mappings similar to vscode (tab to accept)
@@ -46,10 +45,8 @@ require('blink.cmp').setup({
     enabled = function()
         -- Disable blink-cmp in NvimTree
         if vim.g.blink_active then
-            print("Blink active")
             return true 
         end
-        print("Blink inactive")
         return false 
     end,
     keymap = { 
@@ -79,6 +76,16 @@ require('blink.cmp').setup({
     },
 
     completion = {
+        trigger = {
+            show_on_keyword = true,  -- Show completion menu on keyword
+            show_on_blocked_trigger_characters = function () 
+                if vim.bo.filetype == 'python' then
+                    return { ' ', '\n', '\t', ':' }
+                else
+                    return { ' ', '\n', '\t' }
+                end
+            end,
+        },
         menu = {
             draw = {
                 components = {
@@ -155,20 +162,33 @@ require('blink.cmp').setup({
 
 
 local function blink_active()
-        local syn_id = vim.fn.synID(vim.fn.line("."), vim.fn.col("."), 1)
-        local syn_name = vim.fn.synIDattr(syn_id, "name")
-        if syn_name:lower():find('comment') then
-            vim.g.blink_active = false 
-            return
-        end
-        -- Check if the current buffer is NvimTree 
-        local bufnr = vim.api.nvim_get_current_buf()
-        local bufname = vim.api.nvim_buf_get_name(bufnr)
-        if bufname:match("NvimTree_") then
-            vim.g.blink_active = false 
-            return
-        end
-        vim.g.blink_active = true
+    local win = vim.api.nvim_get_current_win()
+    local buf = vim.api.nvim_get_current_buf()
+    local bufname = vim.api.nvim_buf_get_name(buf)
+
+    -- Check if in floating window (Lspsaga rename, etc.)
+    local win_config = vim.api.nvim_win_get_config(win)
+    if win_config.relative ~= "" then
+        print("Floating window detected:", bufname)
+        vim.g.blink_active = false
+        return
+    end
+
+
+    local syn_id = vim.fn.synID(vim.fn.line("."), vim.fn.col("."), 1)
+    local syn_name = vim.fn.synIDattr(syn_id, "name")
+    if syn_name:lower():find('comment') then
+        vim.g.blink_active = false 
+        return
+    end
+    -- Check if the current buffer is NvimTree 
+    local bufnr = vim.api.nvim_get_current_buf()
+    local bufname = vim.api.nvim_buf_get_name(bufnr)
+    if bufname:match("NvimTree_") then
+        vim.g.blink_active = false 
+        return
+    end
+    vim.g.blink_active = true
 end 
 
 vim.api.nvim_create_autocmd({"CursorMoved"}, {
