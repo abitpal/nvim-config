@@ -223,10 +223,13 @@ end
 vim.api.nvim_create_autocmd("ColorScheme", {
   pattern = "*",
   callback = function()
+    make_italic("@keyword")
     make_italic("@keyword.repeat")
     make_italic("@keyword.function")
     make_italic("@keyword.conditional")
     make_italic("@keyword.import")
+    make_italic("@keyword.exception")
+    make_italic("@function.builtin")
   end,
 })
 
