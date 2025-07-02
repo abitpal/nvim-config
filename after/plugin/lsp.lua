@@ -212,3 +212,21 @@ vim.api.nvim_create_autocmd("CursorHold", {
     end
 })
 
+local function make_italic(group)
+  local ok, hl = pcall(vim.api.nvim_get_hl, 0, { name = group, link = false })
+  if ok then
+    hl.italic = true
+    vim.api.nvim_set_hl(0, group, hl)
+  end
+end
+
+vim.api.nvim_create_autocmd("ColorScheme", {
+  pattern = "*",
+  callback = function()
+    make_italic("@keyword.repeat")
+    make_italic("@keyword.function")
+    make_italic("@keyword.conditional")
+    make_italic("@keyword.import")
+  end,
+})
+

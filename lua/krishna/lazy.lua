@@ -51,7 +51,7 @@ require("lazy").setup({
         { "nvim-treesitter/nvim-treesitter", build = ":TSUpdate" },
         {
             "nvim-treesitter/playground",
-            enabled = false,
+            enabled = true,
         },
         "nvim-treesitter/nvim-treesitter-context",
         {
@@ -337,6 +337,6 @@ require("lazy").setup({
             'nvimdev/dashboard-nvim',
             event = 'VimEnter',
             dependencies = { {'nvim-tree/nvim-web-devicons'}}
-        }
+        },
     },
 })
