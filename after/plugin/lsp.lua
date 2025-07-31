@@ -1,32 +1,8 @@
 require("mason").setup()
 require("mason-lspconfig").setup({
-    handlers = {
-        function(server_name)
-            require('lspconfig')[server_name].setup({})
-        end,
-
-        ["rust_analyzer"] = function()
-            local features = {}
-
-            -- Automatically enable the "cuda" feature if ENABLE_CUDA=1 is set in the environment
-            if vim.env.ENABLE_CUDA == "1" then
-                table.insert(features, "cuda")
-            end
-
-            require('lspconfig').rust_analyzer.setup({
-                settings = {
-                    ["rust-analyzer"] = {
-                        cargo = {
-                            features = features,
-                        },
-                        checkOnSave = {
-                            command = "clippy",
-                        },
-                    },
-                },
-            })
-        end,
-    },
+    automatic_enable = {
+        exclude = {"rust_analyzer"}
+    }
 })
 
 require('blink.cmp').setup({

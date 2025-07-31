@@ -38,6 +38,7 @@ require("lazy").setup({
             lazy = true,
         },
         "norcalli/nvim-colorizer.lua",
+        'mvllow/modes.nvim',
 
         -- Shortcut plugins
         "b0o/mapx.nvim",
@@ -47,6 +48,19 @@ require("lazy").setup({
             "nvim-telescope/telescope.nvim",
             version = "0.1.3",
             dependencies = { "nvim-lua/plenary.nvim" },
+        },
+        {
+            'mrcjkb/rustaceanvim',
+            version = '^6', -- Recommended
+            lazy = false, -- This plugin is already lazy
+        },
+        'rust-lang/rust.vim',
+        {
+            'saecki/crates.nvim',
+            tag = 'stable',
+            config = function()
+                require('crates').setup()
+            end,
         },
         { "nvim-treesitter/nvim-treesitter", build = ":TSUpdate" },
         {
