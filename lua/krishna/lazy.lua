@@ -63,7 +63,6 @@ require("lazy").setup({
 			"nvim-treesitter/playground",
 			enabled = false,
 		},
-		"nvim-treesitter/nvim-treesitter-context",
 		{
 			"L3MON4D3/LuaSnip",
 			-- follow latest release.
