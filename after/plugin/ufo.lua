@@ -1,22 +1,18 @@
--- Nice and simple folding:
+vim.o.foldcolumn = "1" -- '0' is not bad
+vim.o.foldlevel = 99 -- Using ufo provider need a large value, feel free to decrease the value
+vim.o.foldlevelstart = 99
 vim.o.foldenable = true
-vim.o.foldlevel = 99
-vim.o.foldmethod = "expr"
-vim.o.foldexpr = "v:lua.vim.treesitter.foldexpr()"
-vim.o.foldtext = ""
-vim.opt.foldcolumn = "0"
-vim.opt.fillchars:append({fold = " "})
 
-vim.o.foldmethod = 'expr'
--- Default to treesitter folding
-vim.o.foldexpr = 'v:lua.vim.treesitter.foldexpr()'
--- Prefer LSP folding if client supports it
-vim.api.nvim_create_autocmd('LspAttach', {
-    callback = function(args)
-         local client = vim.lsp.get_client_by_id(args.data.client_id)
-         if client:supports_method('textDocument/foldingRange') then
-             local win = vim.api.nvim_get_current_win()
-             vim.wo[win][0].foldexpr = 'v:lua.vim.lsp.foldexpr()'
-        end
-    end,
- })
+-- Using ufo provider need remap `zR` and `zM`. If Neovim is 0.6.1, remap yourself
+vim.keymap.set("n", "zR", require("ufo").openAllFolds)
+vim.keymap.set("n", "zM", require("ufo").closeAllFolds)
+
+vim.keymap.set("n", "zz", function()
+	local line = vim.fn.line(".")
+	if vim.fn.foldclosed(line) ~= -1 then
+		vim.cmd("foldopen")
+	else
+		vim.cmd("foldclose")
+	end
+end, { desc = "Toggle fold under cursor" })
+require("ufo").setup()

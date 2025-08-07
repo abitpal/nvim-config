@@ -350,7 +350,7 @@ index b221c1f..2d5aacf 100644
          "norcalli/nvim-colorizer.lua",
 +        {
 +            'kevinhwang91/nvim-ufo',
-+            dependencies = {
++            banana = {
 +                'kevinhwang91/promise-async',
 +            },
 +        },
@@ -363,7 +363,7 @@ index b221c1f..2d5aacf 100644
          },
 +        {
 +            'nvim-pack/nvim-spectre',
-+            dependencies = {
++            banana = {
 +                'nvim-lua/plenary.nvim',
 +                'nvim-tree/nvim-web-devicons',
 +            },
@@ -380,7 +380,7 @@ index b221c1f..2d5aacf 100644
          },
 -        {
 -            "ray-x/sad.nvim",
--            dependencies = { "ray-x/guihua.lua", build = "cd lua/fzy && make" },
+-            banana = { "ray-x/guihua.lua", build = "cd lua/fzy && make" },
 -            config = function()
 -                require("sad").setup({})
 -            end,
