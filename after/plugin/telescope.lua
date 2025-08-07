@@ -6,7 +6,6 @@ require("telescope").setup({
 			"node_modules",
 			".git",
 			".cache",
-			"build",
 			"include",
 			"%.jpg",
 			"%.jpeg",

@@ -43,7 +43,6 @@ require("lazy").setup({
 		-- Editor and LSP
 		{
 			"nvim-telescope/telescope.nvim",
-			version = "0.1.3",
 			dependencies = { "nvim-lua/plenary.nvim" },
 		},
 		{
@@ -130,6 +129,15 @@ require("lazy").setup({
 			dependencies = {
 				"nvim-lua/plenary.nvim",
 				"nvim-tree/nvim-web-devicons",
+			},
+		},
+		{
+			"nvim-neotest/neotest",
+			dependencies = {
+				"nvim-neotest/nvim-nio",
+				"nvim-lua/plenary.nvim",
+				"antoinemadec/FixCursorHold.nvim",
+				"nvim-treesitter/nvim-treesitter",
 			},
 		},
 
@@ -269,8 +277,6 @@ require("lazy").setup({
 		},
 		{ -- The task runner we use
 			"stevearc/overseer.nvim",
-			commit = "400e762648b70397d0d315e5acaf0ff3597f2d8b",
-			cmd = { "MakeitOpen", "MakeitToggleResults", "MakeitRedo" },
 			opts = {
 				task_list = {
 					direction = "bottom",
