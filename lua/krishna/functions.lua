@@ -1,5 +1,10 @@
 local fidget = require('fidget')
 local progress = require('fidget.progress')
+local pickers = require('telescope.pickers')
+local finders = require('telescope.finders')
+local actions = require('telescope.actions')
+local action_state = require('telescope.actions.state')
+local conf = require('telescope.config').values
 
 local function build_cmake_project()
     -- Check if CMakeLists.txt exists in the current directory
@@ -144,7 +149,7 @@ function RunProgramInFloatingWindow()
     end
 
     -- Set key mappings to close the floating window with any key
-    local keymaps = {'<esc>', '<CR>', 'q', '<space>'}
+    local keymaps = { '<esc>', '<CR>', 'q', '<space>' }
     for _, key in ipairs(keymaps) do
         vim.api.nvim_buf_set_keymap(buf, 'n', key, '', {
             noremap = true,
@@ -160,26 +165,26 @@ function RunProgramInFloatingWindow()
             -- Iterate over each line of the program's output
             for _, line in ipairs(data) do
                 -- Convert each line to string and set it to buffer
-                vim.api.nvim_buf_set_lines(buf, -1, -1, false, {tostring(line)})
+                vim.api.nvim_buf_set_lines(buf, -1, -1, false, { tostring(line) })
             end
         end,
         on_stderr = function(_, data)
             -- Iterate over each line of the program's error output
             for _, line in ipairs(data) do
                 -- Convert each line to string and set it to buffer
-                vim.api.nvim_buf_set_lines(buf, -1, -1, false, {tostring(line)})
+                vim.api.nvim_buf_set_lines(buf, -1, -1, false, { tostring(line) })
             end
         end,
         on_exit = function(_, exit_code)
             if exit_code ~= 0 then
-                vim.api.nvim_buf_set_lines(buf, -1, -1, false, {"Program exited with error code: " .. exit_code})
+                vim.api.nvim_buf_set_lines(buf, -1, -1, false, { "Program exited with error code: " .. exit_code })
             end
         end,
     })
 
     -- Check if the job was successfully started
     if job_id <= 0 then
-        vim.api.nvim_buf_set_lines(buf, -1, -1, false, {"Failed to start the program."})
+        vim.api.nvim_buf_set_lines(buf, -1, -1, false, { "Failed to start the program." })
     end
 end
 
@@ -214,7 +219,7 @@ function RunGeneric()
     end
 
     -- Set key mappings to close the floating window with any key
-    local keymaps = {'<esc>', '<CR>', 'q', '<space>'}
+    local keymaps = { '<esc>', '<CR>', 'q', '<space>' }
     for _, key in ipairs(keymaps) do
         vim.api.nvim_buf_set_keymap(buf, 'n', key, '', {
             noremap = true,
@@ -235,7 +240,7 @@ function RunGeneric()
     -- Function to set the cursor to the last line
     local function set_cursor_to_last_line()
         local line_count = vim.api.nvim_buf_line_count(buf)
-        vim.api.nvim_win_set_cursor(win, {line_count, 0})
+        vim.api.nvim_win_set_cursor(win, { line_count, 0 })
     end
 
     program_cmd = "make run"
@@ -245,27 +250,27 @@ function RunGeneric()
             -- Iterate over each line of the program's output
             for _, line in ipairs(data) do
                 -- Convert each line to string and set it to buffer
-                vim.api.nvim_buf_set_lines(buf, -1, -1, false, {tostring(line)})
+                vim.api.nvim_buf_set_lines(buf, -1, -1, false, { tostring(line) })
             end
         end,
         on_stderr = function(_, data)
             -- Iterate over each line of the program's error output
             for _, line in ipairs(data) do
                 -- Convert each line to string and set it to buffer
-                vim.api.nvim_buf_set_lines(buf, -1, -1, false, {tostring(line)})
+                vim.api.nvim_buf_set_lines(buf, -1, -1, false, { tostring(line) })
             end
             set_cursor_to_last_line()
         end,
         on_exit = function(_, exit_code)
             if exit_code ~= 0 then
-                vim.api.nvim_buf_set_lines(buf, -1, -1, false, {"Program exited with error code: " .. exit_code})
+                vim.api.nvim_buf_set_lines(buf, -1, -1, false, { "Program exited with error code: " .. exit_code })
             end
         end,
     })
 
     -- Check if the job was successfully started
     if job_id <= 0 then
-        vim.api.nvim_buf_set_lines(buf, -1, -1, false, {"Failed to start the program."})
+        vim.api.nvim_buf_set_lines(buf, -1, -1, false, { "Failed to start the program." })
     end
 end
 
@@ -300,7 +305,7 @@ function BuildGeneric()
     end
 
     -- Set key mappings to close the floating window with any key
-    local keymaps = {'<esc>', '<CR>', 'q', '<space>'}
+    local keymaps = { '<esc>', '<CR>', 'q', '<space>' }
     for _, key in ipairs(keymaps) do
         vim.api.nvim_buf_set_keymap(buf, 'n', key, '', {
             noremap = true,
@@ -320,7 +325,7 @@ function BuildGeneric()
     -- Function to set the cursor to the last line
     local function set_cursor_to_last_line()
         local line_count = vim.api.nvim_buf_line_count(buf)
-        vim.api.nvim_win_set_cursor(win, {line_count, 0})
+        vim.api.nvim_win_set_cursor(win, { line_count, 0 })
     end
 
     program_cmd = "make"
@@ -330,34 +335,63 @@ function BuildGeneric()
             -- Iterate over each line of the program's output
             for _, line in ipairs(data) do
                 -- Convert each line to string and set it to buffer
-                vim.api.nvim_buf_set_lines(buf, -1, -1, false, {tostring(line)})
+                vim.api.nvim_buf_set_lines(buf, -1, -1, false, { tostring(line) })
             end
         end,
         on_stderr = function(_, data)
             -- Iterate over each line of the program's error output
             for _, line in ipairs(data) do
                 -- Convert each line to string and set it to buffer
-                vim.api.nvim_buf_set_lines(buf, -1, -1, false, {tostring(line)})
+                vim.api.nvim_buf_set_lines(buf, -1, -1, false, { tostring(line) })
             end
             set_cursor_to_last_line()
         end,
         on_exit = function(_, exit_code)
             if exit_code ~= 0 then
-                vim.api.nvim_buf_set_lines(buf, -1, -1, false, {"Program exited with error code: " .. exit_code})
+                vim.api.nvim_buf_set_lines(buf, -1, -1, false, { "Program exited with error code: " .. exit_code })
             end
         end,
     })
 
     -- Check if the job was successfully started
     if job_id <= 0 then
-        vim.api.nvim_buf_set_lines(buf, -1, -1, false, {"Failed to start the program."})
+        vim.api.nvim_buf_set_lines(buf, -1, -1, false, { "Failed to start the program." })
     end
 end
 
+local function jump_to_buffer()
+    local bufs = {}
+    for _, buf in ipairs(vim.api.nvim_list_bufs()) do
+        if vim.api.nvim_buf_is_loaded(buf) and vim.api.nvim_buf_get_name(buf) ~= "" then
+            table.insert(bufs, {
+                name = vim.api.nvim_buf_get_name(buf),
+                bufnr = buf
+            })
+        end
+    end
 
--- Function to jump to a buffer matching partial name
-local function jump_to_buffer(partial_name)
-    vim.cmd('b ' .. partial_name)
+    pickers.new({}, {
+        prompt_title = "Jump to Buffer",
+        finder = finders.new_table {
+            results = bufs,
+            entry_maker = function(entry)
+                return {
+                    value = entry.bufnr,
+                    display = entry.name,
+                    ordinal = entry.name,
+                }
+            end,
+        },
+        sorter = conf.generic_sorter({}),
+        attach_mappings = function(prompt_bufnr, map)
+            actions.select_default:replace(function()
+                actions.close(prompt_bufnr)
+                local selection = action_state.get_selected_entry()
+                vim.api.nvim_set_current_buf(selection.value)
+            end)
+            return true
+        end,
+    }):find()
 end
 
 _G.jump_to_buffer = jump_to_buffer
