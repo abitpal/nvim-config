@@ -12,10 +12,9 @@ noremap("<leader>y", '"+y', { desc = "Copy to clipboard" })
 vim.api.nvim_set_keymap("i", "jj", "<Esc>", { noremap = true, silent = true })
 
 -- NvimTree
-nnoremap("<leader>pv", ":NvimTreeFocus<CR>")
-nnoremap("<leader>pc", ":NvimTreeClose<CR>")
+nnoremap("<C-b>", ":NvimTreeToggle<CR>")
 nnoremap("<leader>pr", ":NvimTreeRefresh<CR>")
-
+--[[ nnoremap("<D-b>", ":NvimTreeToggle") ]]
 -- Trouble
 nnoremap("<leader>t", ":Trouble<CR>")
 
