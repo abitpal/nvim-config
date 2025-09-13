@@ -12,7 +12,7 @@ noremap("<leader>y", '"+y', { desc = "Copy to clipboard" })
 vim.api.nvim_set_keymap("i", "jj", "<Esc>", { noremap = true, silent = true })
 
 -- NvimTree
-nnoremap("<C-b>", ":NvimTreeToggle<CR>")
+nnoremap("∫", ":NvimTreeToggle<CR>")
 nnoremap("<leader>pr", ":NvimTreeRefresh<CR>")
 --[[ nnoremap("<D-b>", ":NvimTreeToggle") ]]
 -- Trouble
@@ -61,10 +61,10 @@ xnoremap(">", ">gv")
 tnoremap("<Esc>", [[<C-\><C-n>]])
 
 -- Navigation in normal mode
-nnoremap("<C-Up>", "<Esc><C-w><up>")
-nnoremap("<C-Down>", "<Esc><C-w><down>")
-nnoremap("<C-Left>", "<Esc><C-w><left>")
-nnoremap("<C-Right>", "<Esc><C-w><right>")
+nnoremap("<M-Up>", "<Esc><C-w><up>")
+nnoremap("<M-Down>", "<Esc><C-w><down>")
+nnoremap("<M-Left>", "<Esc><C-w><left>")
+nnoremap("<M-Right>", "<Esc><C-w><right>")
 
 -- Split and term
 nnoremap("<F5>", ":set splitright<cr>:vs<cr><C-Right><Esc>:term<cr>i")
@@ -85,8 +85,8 @@ nnoremap("gi", "<CMD>Lspsaga peek_implementation<CR>")
 nnoremap("gI", "<CMD>Lspsaga goto_implementation<CR>")
 nnoremap("gr", "<CMD>Lspsaga rename<CR>")
 nnoremap("gR", "<CMD>Lspsaga rename ++project<CR>")
-nnoremap("gt", "<CMD>Lspsaga peek_type_definition<CR>")
-nnoremap("gT", "<CMD>Lspsaga goto_type_definition<CR>")
+--[[ nnoremap("gt", "<CMD>Lspsaga peek_type_definition<CR>")  ]]
+--[[ nnoremap("gT", "<CMD>Lspsaga goto_type_definition<CR>") ]]
 nnoremap("gf", "<CMD>Lspsaga lsp_finder<CR>")
 nnoremap("<leader>ca", "<CMD>Lspsaga code_action<CR>")
 
@@ -107,10 +107,14 @@ nnoremap("<leader>c", ":TagbarToggle<CR>")
 -- Tabs and buffers
 nnoremap("<leader>bc", ":tabnew<CR>:NvimTreeFocus<CR>")
 nnoremap("<leader>bx", ":bd<CR>")
-nnoremap("<leader>bp", ":bp<CR>")
-nnoremap("<leader>bn", ":bn<CR>")
+--[[ nnoremap("<leader>bp", ":bp<CR>") ]]
+--[[ nnoremap("<leader>bn", ":bn<CR>") ]]
 nnoremap("<leader>bb", ":Telescope buffers<CR>")
 nnoremap("<leader>b", ':lua jump_to_buffer(vim.fn.input("Buffer: "))<CR>', { silent = true })
+
+nnoremap("gt", ":bn<CR>")
+nnoremap("gT", ":bp<CR>")
+
 
 -- CMake and program execution
 nnoremap("<M-l>", "<cmd>MakeitOpen<CR>")
