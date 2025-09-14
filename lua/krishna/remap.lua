@@ -114,7 +114,7 @@ nnoremap("<leader>b", ':lua jump_to_buffer(vim.fn.input("Buffer: "))<CR>', { sil
 
 nnoremap("gt", ":bn<CR>")
 nnoremap("gT", ":bp<CR>")
-
+nnoremap("∑", ":close<CR>")
 
 -- CMake and program execution
 nnoremap("<M-l>", "<cmd>MakeitOpen<CR>")

@@ -295,6 +295,14 @@ require("lazy").setup({
             config = true
             -- use opts = {} for passing setup options
             -- this is equivalent to setup({}) function
-        }
+        },
+        {
+            'chipsenkbeil/distant.nvim', 
+            branch = 'v0.3',
+            config = function()
+                require('distant'):setup()
+            end
+        },
+
     },
 })
