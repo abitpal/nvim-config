@@ -1,8 +1,13 @@
 -- example using `opts` for defining servers
 local opts = {
-	servers = {
-		lua_ls = {},
-	},
+  servers = {
+    lua_ls = {},
+    pyright = {
+      settings = {
+        python = {} -- leave empty; we'll inject pythonPath dynamically
+      },
+    },
+  },
 }
 local lspconfig = require("lspconfig")
 for server, config in pairs(opts.servers) do
@@ -24,6 +29,120 @@ require("mason-lspconfig").setup({
 		exclude = { "rust_analyzer" },
 	},
 })
+
+-- --- Python env selector for Pyright ---------------------------------------
+local function path_join(a,b) return (vim.fn.has("win32")==1) and (a.."\\"..b) or (a.."/"..b) end
+local function py_bin(dir)
+  if vim.fn.has("win32")==1 then
+    local p = path_join(dir, "python.exe")
+    if vim.fn.executable(p)==1 then return p end
+    return path_join(path_join(dir, "Scripts"), "python.exe")
+  else
+    local p = path_join(dir, "python")
+    if vim.fn.executable(p)==1 then return p end
+    return path_join(path_join(dir, "bin"), "python")
+  end
+end
+
+local function detect_envs()
+  local items, seen = {}, {}
+
+  -- 1) Active envs from env vars
+  local venv = os.getenv("VIRTUAL_ENV")
+  if venv and vim.fn.isdirectory(venv)==1 then
+    local py = py_bin(venv)
+    if vim.fn.executable(py)==1 then table.insert(items, {label="(venv) "..venv, python=py}) end
+  end
+  local conda = os.getenv("CONDA_PREFIX")
+  if conda and vim.fn.isdirectory(conda)==1 then
+    local py = py_bin(conda)
+    if vim.fn.executable(py)==1 then table.insert(items, {label="(conda) "..conda, python=py}) end
+  end
+
+  -- 2) Project-local folders
+  for _, d in ipairs({".venv","venv",".env","env"}) do
+    local dir = vim.fn.getcwd().."/"..d
+    if vim.fn.isdirectory(dir)==1 then
+      local py = py_bin(dir)
+      if vim.fn.executable(py)==1 and not seen[py] then
+        table.insert(items, {label="(project) "..dir, python=py}); seen[py]=true
+      end
+    end
+  end
+
+  -- 3) Poetry
+  if vim.fn.executable("poetry")==1 then
+    local out = vim.fn.systemlist("poetry env info -p 2>/dev/null")[1]
+    if out and #out>0 then
+      local py = py_bin(out)
+      if vim.fn.executable(py)==1 and not seen[py] then
+        table.insert(items, {label="(poetry) "..out, python=py}); seen[py]=true
+      end
+    end
+  end
+
+  -- 4) Conda environments list
+  if vim.fn.executable("conda")==1 then
+    local json = table.concat(vim.fn.systemlist("conda env list --json 2>/dev/null"), "\n")
+    local ok, data = pcall(vim.json.decode, json)
+    if ok and data and data.envs then
+      for _, dir in ipairs(data.envs) do
+        local py = py_bin(dir)
+        if vim.fn.executable(py)==1 and not seen[py] then
+          table.insert(items, {label="(conda) "..dir, python=py}); seen[py]=true
+        end
+      end
+    end
+  end
+
+  -- 5) Fallback: system python
+  local sys = vim.fn.exepath(vim.fn.has("win32")==1 and "python" or "python3")
+  if sys ~= "" then table.insert(items, {label="(system) "..sys, python=sys}) end
+
+  return items
+end
+
+local function set_pyright_python(python_path)
+  local clients = vim.lsp.get_active_clients({ name = "pyright" })
+  if #clients == 0 then
+    vim.notify("Pyright is not active in this buffer.", vim.log.levels.WARN)
+    return
+  end
+  for _, client in ipairs(clients) do
+    client.config.settings = client.config.settings or {}
+    client.config.settings.python = client.config.settings.python or {}
+    client.config.settings.python.pythonPath = python_path
+    -- optional: clear venv fields to avoid conflicts
+    client.config.settings.python.venv = nil
+    client.config.settings.python.venvPath = nil
+
+    client.notify("workspace/didChangeConfiguration", { settings = client.config.settings })
+  end
+  vim.b.pyright_python = python_path  -- remember per-buffer
+  vim.notify("Pyright Python: "..python_path, vim.log.levels.INFO)
+end
+
+-- Command: pick from a list
+vim.api.nvim_create_user_command("Env", function()
+  local items = detect_envs()
+  vim.ui.select(items, { prompt = "Select Python environment", format_item = function(i) return i.label end },
+    function(choice) if choice then set_pyright_python(choice.python) end end)
+end, {})
+
+-- Command: set directly with a path (tab-completes files)
+vim.api.nvim_create_user_command("PyEnvUse", function(opts)
+  set_pyright_python(opts.args)
+end, { nargs = 1, complete = "file" })
+
+-- Convenience: use current $CONDA_PREFIX or $VIRTUAL_ENV
+vim.api.nvim_create_user_command("PyEnvUseActive", function()
+  local dir = os.getenv("CONDA_PREFIX") or os.getenv("VIRTUAL_ENV")
+  if not dir then return vim.notify("No active CONDA_PREFIX/VIRTUAL_ENV.", vim.log.levels.WARN) end
+  local py = py_bin(dir)
+  if vim.fn.executable(py)==1 then set_pyright_python(py) else vim.notify("Python not found in "..dir, vim.log.levels.ERROR) end
+end, {})
+-- ---------------------------------------------------------------------------
+
 
 require("blink.cmp").setup({
 	-- 'default' (recommended) for mappings similar to built-in completions (C-y to accept)
