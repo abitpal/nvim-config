@@ -303,6 +303,10 @@ require("lazy").setup({
                 require('distant'):setup()
             end
         },
-
+        {
+          "catppuccin/nvim",
+          name = "catppuccin",
+          priority = 1000,
+        }
     },
 })
