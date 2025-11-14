@@ -16,6 +16,9 @@ require("nvim-tree").setup({
         },
     },
     open_on_tab = true,
+    filters = {
+        git_ignored = false,
+    }, 
 })
 
 
